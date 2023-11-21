@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="video-container">
+        <video autoplay loop muted class="background-video">
+          <source src="./videos/background-video.mp4" type="video/mp4"> <!-- Update the path to your video file -->
+        </video>
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <h2 class="text-center mb-4">Login</h2>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" required>
+          </div>
+          <button type="button" (click)="login()" class="btn btn-primary btn-block">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>  
