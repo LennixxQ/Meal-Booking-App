@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "users")
+public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "password", nullable = false, length = 255)
