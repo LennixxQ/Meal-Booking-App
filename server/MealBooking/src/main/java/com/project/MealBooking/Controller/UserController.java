@@ -3,6 +3,7 @@ package com.project.MealBooking.Controller;
 
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Service.UserService;
+import com.project.MealBooking.dto.ChangePasswordRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,20 @@ public class UserController {
             return ResponseEntity.ok("Login Successful");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
+        String email = request.getEmail();
+        String oldPassword = request.getOldPassword();
+        String newPassword = request.getNewPassword();
+
+        if (userService.isValidUser(email, oldPassword)) {
+            userService.changePassword(email, newPassword);
+            return ResponseEntity.ok("Password changed successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or old password");
         }
     }
 

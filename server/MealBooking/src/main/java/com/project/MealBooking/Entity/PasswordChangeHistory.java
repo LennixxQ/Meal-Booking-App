@@ -12,9 +12,9 @@ public class PasswordChangeHistory {
     @Column(name = "password_change_id")
     private Long passwordChangeId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "email")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "email", referencedColumnName = "email")
+    private Users users;
 
     @Column(name = "old_password", length = 255)
     private String oldPassword;
@@ -50,6 +50,14 @@ public class PasswordChangeHistory {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 
     public Timestamp getChangeDate() {
