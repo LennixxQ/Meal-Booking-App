@@ -16,5 +16,6 @@ public class Coupon {
 
     @Column(name = "redemption_time")
     private Timestamp redemptionTime;
+
 }
 

@@ -1,0 +1,64 @@
+h5{
+
+  margin-left: 150px;
+}
+
+/* Additional CSS for button container */
+.button-container {
+  position: RELATIVE;
+  bottom: 720px;
+  left: 77%;
+  transform: translateX(90%); 
+}
+
+/* Style for the buttons */
+.button-container button {
+  margin: 0 5px; /* Add margin between buttons */
+}
+
+.btn-custom {
+  /* Custom styles for the button */
+  background-color: #FFA500; /* Orange */
+  border-color: #FFA500; /* Orange */
+  color: #fff; /* White text color */
+  font-size: 16px; /* Font size */
+  padding: 10px 20px; /* Padding */
+  border-radius: 5px; /* Border radius */
+  transition: background-color 0.3s ease; /* Transition effect on hover */
+}
+
+.btn-custom:hover {
+  /* Changing background color on hover */
+  background-color: #FF8C00; /* Darker Orange */
+}
+
+
+/* Additional CSS for button container */
+.button-container {
+  position: RELATIVE;
+  bottom: 720px;
+  left: 77%;
+  transform: translateX(90%); 
+}
+
+/* Style for the buttons */
+.button-container button {
+  margin: 0 5px; /* Add margin between buttons */
+}
+
+.btn-custom {
+  /* Custom styles for the button */
+  background-color: #FFA500; /* Orange */
+  border-color: #FFA500; /* Orange */
+  color: #fff; /* White text color */
+  font-size: 16px; /* Font size */
+  padding: 10px 20px; /* Padding */
+  border-radius: 5px; /* Border radius */
+  transition: background-color 0.3s ease; /* Transition effect on hover */
+}
+
+.btn-custom:hover {
+  /* Changing background color on hover */
+  background-color: #FF8C00; /* Darker Orange */
+}
+
