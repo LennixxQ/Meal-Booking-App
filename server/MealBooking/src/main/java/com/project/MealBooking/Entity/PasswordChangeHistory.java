@@ -1,10 +1,14 @@
 package com.project.MealBooking.Entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "password_change_history")
 public class PasswordChangeHistory {
     @Id
@@ -28,52 +32,5 @@ public class PasswordChangeHistory {
     @Column(name = "user_action", length = 20)
     private String userAction;
 
-    public Long getPasswordChangeId() {
-        return passwordChangeId;
-    }
-
-    public void setPasswordChangeId(Long passwordChangeId) {
-        this.passwordChangeId = passwordChangeId;
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
-    public Timestamp getChangeDate() {
-        return changeDate;
-    }
-
-    public void setChangeDate(Timestamp changeDate) {
-        this.changeDate = changeDate;
-    }
-
-    public String getUserAction() {
-        return userAction;
-    }
-
-    public void setUserAction(String userAction) {
-        this.userAction = userAction;
-    }
 }
 
