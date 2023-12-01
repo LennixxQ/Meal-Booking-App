@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'meal_app';
+  // isLoggedIn: boolean = false;
+
+  // // Implement a login function that sets isLoggedIn to true
+  // login() {
+  //   this.isLoggedIn = false;
+  // }
 }
