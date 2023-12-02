@@ -41,8 +41,8 @@ public class AuthenticationService {
     //This method will create a user save it to database and generate a token out of it
     public AuthenticationReponse register(RegisterRequest request) {
         var user = Users.builder()
-//                .firstName(request.getFistname())
-//                .lastName(request.getLastname())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .email(request.getEmail())
                 .password((passwordEncoder.encode(request.getPassword())))
                 .role(Users.UserRole.EMPLOYEE)

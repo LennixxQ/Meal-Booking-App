@@ -1,13 +1,18 @@
 package com.project.MealBooking.Entity;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.CurrentTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -17,7 +22,7 @@ import java.util.*;
 @Getter
 @Setter
 @Table(name = "users")
-public class Users implements UserDetails {
+public class    Users implements UserDetails {
     @Id
     @Column(name = "email", nullable = false)
     @NotNull
@@ -34,6 +39,7 @@ public class Users implements UserDetails {
     private String lastName;
 
     @Column(name = "last_login")
+    @CurrentTimestamp
     private Timestamp lastLogin;
 
     @Enumerated(EnumType.STRING)
@@ -47,9 +53,9 @@ public class Users implements UserDetails {
     )
     private Set<Roles> roles = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employeeId;
+//    @ManyToOne
+//    @JoinColumn(name = "employee_id")
+//    private Employee employeeId;
 
     @Column(name = "token", length = 255)
     private String user_token;
