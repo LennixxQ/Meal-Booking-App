@@ -23,7 +23,6 @@ public class AuthenticationController {
     public AuthenticationController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
-
     @Autowired
     private Jwtutils jwtUtil;
 
