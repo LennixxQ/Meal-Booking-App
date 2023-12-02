@@ -4,10 +4,7 @@ package com.project.MealBooking.Service;
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Repository.UserRepository;
 import com.project.MealBooking.Service.utils.Jwtutils;
-import com.project.MealBooking.dto.AuthenticationReponse;
-import com.project.MealBooking.dto.AuthenticationRequest;
-import com.project.MealBooking.dto.LoginRequest;
-import com.project.MealBooking.dto.RegisterRequest;
+import com.project.MealBooking.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -88,5 +85,25 @@ public class AuthenticationService {
                 .jwtToken(jwtToken)
                 .build();
     }
+
+    public void changePassword(ChangePasswordRequest request){
+        String email = request.getEmail();
+        String oldPassword = request.getOldPassword();
+        String newPassword = request.getNewPassword();
+
+        Users users = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+
+        if(!passwordEncoder.matches(oldPassword, users.getPassword())){
+            throw new RuntimeException("Invalid Old Password");
+        }
+        if (jwtutils.isTokenExpiried(users.getUser_token())){
+            throw new RuntimeException("Toke is expired. Please Login Again");
+        }
+
+        users.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(users);
+    }
+
 
 }

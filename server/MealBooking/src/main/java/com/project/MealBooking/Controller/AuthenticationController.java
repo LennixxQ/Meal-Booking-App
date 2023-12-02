@@ -3,10 +3,7 @@ package com.project.MealBooking.Controller;
 
 import com.project.MealBooking.Service.AuthenticationService;
 import com.project.MealBooking.Service.utils.Jwtutils;
-import com.project.MealBooking.dto.AuthenticationReponse;
-import com.project.MealBooking.dto.AuthenticationRequest;
-import com.project.MealBooking.dto.LoginRequest;
-import com.project.MealBooking.dto.RegisterRequest;
+import com.project.MealBooking.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +44,17 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationReponse> login(
             @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authenticationService.login(request));
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody
+                                                 ChangePasswordRequest request){
+        try{
+            authenticationService.changePassword(request);
+            return ResponseEntity.ok("Password Successfully Changed");
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
