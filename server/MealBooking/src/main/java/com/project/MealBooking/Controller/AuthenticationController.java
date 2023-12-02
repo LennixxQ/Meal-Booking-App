@@ -1,48 +1,53 @@
 package com.project.MealBooking.Controller;
 
 
+import com.project.MealBooking.Service.AuthenticationService;
 import com.project.MealBooking.Service.utils.Jwtutils;
 import com.project.MealBooking.dto.AuthenticationReponse;
 import com.project.MealBooking.dto.AuthenticationRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.project.MealBooking.dto.LoginRequest;
+import com.project.MealBooking.dto.RegisterRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/v1/auth")
+@RequiredArgsConstructor
 public class AuthenticationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private AuthenticationService authenticationService;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    public AuthenticationController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     @Autowired
     private Jwtutils jwtUtil;
 
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationReponse> register(
+            @RequestBody RegisterRequest request){
+        return ResponseEntity.ok(authenticationService.register(request));
+    }
+
     @PostMapping("/authenticate")
-    public AuthenticationReponse createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws Exception{
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-        }
-        catch (BadCredentialsException e){
-            throw new BadCredentialsException("Invalid Credentials");
-        }catch (DisabledException disabledException){
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "User Not Found");
-            return null;
-        }
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-        return new AuthenticationReponse(jwt);
+    public ResponseEntity<AuthenticationReponse> register(
+            @RequestBody AuthenticationRequest request){
+        return ResponseEntity.ok(authenticationService.authenticate(request));
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<String> TestHello(){
+        return ResponseEntity.ok("Hello From Backend!!");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationReponse> login(
+            @RequestBody LoginRequest request) {
+        return ResponseEntity.ok(authenticationService.login(request));
     }
 
 }
