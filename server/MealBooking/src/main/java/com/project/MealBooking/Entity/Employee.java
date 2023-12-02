@@ -1,15 +1,19 @@
 package com.project.MealBooking.Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Getter
-@Setter
 @Table(name = "employee")
 public class Employee {
 
@@ -26,6 +30,14 @@ public class Employee {
 
     @Column(name = "email", unique = true, nullable = false, length = 255)
     private String email;
+
+//    @Column(name = "password", length = 255)
+//    @NotNull
+//    private String password;
+
+    @Column(name = "user_role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "position", length=255)
     private String position;
@@ -60,5 +72,9 @@ public class Employee {
     @Column(name = "salary", precision = 10, scale = 2)
     private BigDecimal salary;
 
+
+    public enum Role{
+        Admin, EMPLOYEE
+    }
 
 }

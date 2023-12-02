@@ -1,18 +1,15 @@
 package com.project.MealBooking.dto;
 
+
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class AuthenticationRequest {
-
+public class LoginRequest {
     private String email;
     private String password;
     private String user_token;
-
 }

@@ -1,14 +1,18 @@
 package com.project.MealBooking.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
-@Setter
-@Getter
+import java.util.Collection;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthenticationReponse {
     private String jwtToken;
 
-    public AuthenticationReponse(String jwtToken) {
+    public AuthenticationReponse(String jwtToken, Collection<? extends GrantedAuthority> authorities) {
         this.jwtToken = jwtToken;
     }
 
