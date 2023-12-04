@@ -6,12 +6,12 @@ import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent},
-  {path : 'forget-password', component: ForgetPasswordComponent}
+  { path: 'home', component: HomeComponent },
+  { path: 'forget-password', component: ForgetPasswordComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,6 +1,5 @@
-h5{
-
-  margin-left: 150px;
+h5 {
+  margin-left: 178px;
 }
 
 /* Additional CSS for button container */
@@ -8,7 +7,7 @@ h5{
   position: RELATIVE;
   bottom: 720px;
   left: 77%;
-  transform: translateX(90%); 
+  transform: translateX(90%);
 }
 
 /* Style for the buttons */
@@ -18,8 +17,8 @@ h5{
 
 .btn-custom {
   /* Custom styles for the button */
-  background-color: #FFA500; /* Orange */
-  border-color: #FFA500; /* Orange */
+  background-color: #ffa500; /* Orange */
+  border-color: #ffa500; /* Orange */
   color: #fff; /* White text color */
   font-size: 16px; /* Font size */
   padding: 10px 20px; /* Padding */
@@ -29,16 +28,15 @@ h5{
 
 .btn-custom:hover {
   /* Changing background color on hover */
-  background-color: #FF8C00; /* Darker Orange */
+  background-color: #ff8c00; /* Darker Orange */
 }
-
 
 /* Additional CSS for button container */
 .button-container {
   position: RELATIVE;
   bottom: 720px;
   left: 77%;
-  transform: translateX(90%); 
+  transform: translateX(90%);
 }
 
 /* Style for the buttons */
@@ -48,8 +46,8 @@ h5{
 
 .btn-custom {
   /* Custom styles for the button */
-  background-color: #FFA500; /* Orange */
-  border-color: #FFA500; /* Orange */
+  background-color: #ffa500; /* Orange */
+  border-color: #ffa500; /* Orange */
   color: #fff; /* White text color */
   font-size: 16px; /* Font size */
   padding: 10px 20px; /* Padding */
@@ -58,7 +56,48 @@ h5{
 }
 
 .btn-custom:hover {
-  /* Changing background color on hover */
-  background-color: #FF8C00; /* Darker Orange */
+  background-color: #ff8c00;
 }
 
+/* Styles for the card */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+
+  margin-bottom: 0;
+}
+
+/* Adjustments for responsiveness */
+@media (max-width: 768px) {
+  .col-md-4 {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+}
+
+.date-input.position-absolute.p-3.col-md-6 {
+  width: 100%;
+}
+
+.mat-calendar {
+  background: rgb(255, 245, 238);
+}
