@@ -1,4 +1,4 @@
-package com.project.MealBooking.Service.utils;
+package com.project.MealBooking.config;
 
 import com.project.MealBooking.Entity.Users;
 import io.jsonwebtoken.Claims;
@@ -20,7 +20,7 @@ import java.util.function.Function;
 @Service
 public class Jwtutils {
 
-    public static final String secret = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
+    public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
 
     private Users users;
 
@@ -40,10 +40,12 @@ public class Jwtutils {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
+
 //
 
     //Used to verify the signature of the sender and it verifies that this token manipulated
-    private Claims extractAllClaims(String token){
+    Claims extractAllClaims(String token){
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignKey())
@@ -52,25 +54,25 @@ public class Jwtutils {
                 .getBody();
     }
 
-    public String generateToken(UserDetails userDetails){
+    public String generateToken(Users users){
 //        Map<String, Object> extractClaims = new HashMap<>();
-        return createToken(new HashMap<>(), userDetails);
+        return createToken(new HashMap<>(),users);
     }
 
     //To give signature to keys
     private Key getSignKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
 
-    private String createToken(Map<String, Object> extraClaims, UserDetails userDetails){
+    private String createToken(Map<String, Object> extraClaims, Users users){
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())  //username or useremail
-                .claim("email", userDetails.getUsername())
-                .claim("role", userDetails.getAuthorities())
+                .setSubject(users.getEmail())  //username or useremail
+              //  .claim("email", users.getEmail())
+                .claim("role", users.getRole().name())
                 .setIssuedAt(new Date(System.currentTimeMillis()))  //to check the expiration afterwards
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) //Validity of token
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
