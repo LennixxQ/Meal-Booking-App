@@ -6,7 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  MatDialog,
   MAT_DIALOG_DATA,
   MatDialogRef,
   MatDialogModule,
@@ -17,8 +16,10 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { QuickMealComponent } from '../quick-meal/quick-meal.component';
+import { BookMealComponent } from '../book-meal/book-meal.component';
 import * as moment from 'moment';
-import { HomeQuickMealComponent } from '../home-quick-meal/home-quick-meal.component';
+import { MatDialog } from '@angular/material/dialog';
+
 import {
   MatDatepicker,
   MatDatepickerModule,
@@ -73,9 +74,11 @@ export class HomeComponent implements OnInit {
     }, 60 * 1000);
   }
 
+  //checks if 8 pm=disable and again enables next day at 8am
+
   checkTimer() {
-    const openingTime = moment().startOf('day').add(0, 'hour');
-    const endTime = moment().startOf('day').add(23, 'hour');
+    const openingTime = moment().startOf('day').add(8, 'hour');
+    const endTime = moment().startOf('day').add(20, 'hour');
     const currTime = moment();
 
     if (moment(currTime).isBefore(openingTime)) {
@@ -87,6 +90,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  //quickmeal popup
   openDialog(): void {
     const dialogRef = this.dialog.open(QuickMealComponent, {
       width: '550px',
@@ -98,6 +102,21 @@ export class HomeComponent implements OnInit {
       this.animal = result;
     });
   }
+
+  //bookmeal popup
+  openDialogbox(): void {
+    const dialogRef = this.dialog.open(BookMealComponent, {
+      width: '550px',
+      data: { name: this.name, animal: this.animal },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+  //homepage static calendar
 
   dateFilter = (date: Date): boolean => {
     const day = date.getDay();
