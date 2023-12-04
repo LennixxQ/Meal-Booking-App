@@ -33,7 +33,6 @@ public class AdminServiceImpl {
             try {
                 var jwtToken = jwtutils.generateToken(adminAccount);
                 adminAccount.setUser_token(jwtToken);
-
             }
             catch (Exception e){
                 System.out.println("Admin Token Cannot Be Generated!");

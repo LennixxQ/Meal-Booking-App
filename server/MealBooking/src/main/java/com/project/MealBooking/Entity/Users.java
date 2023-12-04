@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Builder
@@ -21,10 +19,11 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "users")
+@Table(name = "users_table")
 public class    Users implements UserDetails {
-    @Id
-    @Column(name = "email", nullable = false)
+
+    @Id //Primary Key
+    @Column(name = "email", nullable = false, length = 50)
     @NotNull
     private String email;
 
@@ -39,23 +38,12 @@ public class    Users implements UserDetails {
     private String lastName;
 
     @Column(name = "last_login")
-    @CurrentTimestamp
+    @CurrentTimestamp  //TimeStamp
     private Timestamp lastLogin;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
     private UserRole role;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Roles> roles = new HashSet<>();
-
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id")
-//    private Employee employeeId;
 
     @Column(name = "token", length = 255)
     private String user_token;
@@ -65,15 +53,23 @@ public class    Users implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+
+    public Users(String email, UserRole role) {
+        this.email = email;
+        this.role = role;
+    }
+
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
+
 
     @Override
     public boolean isAccountNonLocked() {
