@@ -83,6 +83,7 @@ public class AuthenticationService {
         userRepository.save(user);
         return AuthenticationReponse.builder()
                 .jwtToken(jwtToken)
+//                .withSubject(user.getEmail(), user.getRole(), user.getEmail())
                 .build();
     }
 
@@ -98,7 +99,7 @@ public class AuthenticationService {
             throw new RuntimeException("Invalid Old Password");
         }
         if (jwtutils.isTokenExpiried(users.getUser_token())){
-            throw new RuntimeException("Toke is expired. Please Login Again");
+            throw new RuntimeException("Token is expired. Please Login Again");
         }
 
         users.setPassword(passwordEncoder.encode(newPassword));

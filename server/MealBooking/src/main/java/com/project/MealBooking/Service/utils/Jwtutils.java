@@ -1,5 +1,6 @@
 package com.project.MealBooking.Service.utils;
 
+import com.project.MealBooking.Entity.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,6 +21,8 @@ import java.util.function.Function;
 public class Jwtutils {
 
     public static final String secret = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
+
+    private Users users;
 
     //To extract the username  // getSubject should be email or username of the user
     public String extractUsername(String token){
@@ -66,12 +69,14 @@ public class Jwtutils {
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())  //username or useremail
-//                .claim("roles", authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .claim("email", userDetails.getUsername())
+                .claim("role", userDetails.getAuthorities())
                 .setIssuedAt(new Date(System.currentTimeMillis()))  //to check the expiration afterwards
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) //Validity of token
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
 
     public boolean isTokenValid(String token, UserDetails userDetails){
         final String username = extractUsername(token);

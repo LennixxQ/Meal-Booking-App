@@ -3,6 +3,7 @@ package com.project.MealBooking.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CurrentTimestamp;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -28,6 +29,7 @@ public class MealBooking {
     private String mealType;
 
     @Column(name = "timestamp")
+    @CurrentTimestamp
     private Timestamp timestamp;
 }
 
