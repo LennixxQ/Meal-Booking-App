@@ -21,7 +21,6 @@ import { MatInputModule } from '@angular/material/input';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePickerModalComponent } from './date-picker-modal/date-picker-modal.component';
-import { HomeQuickMealComponent } from './home-quick-meal/home-quick-meal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { BookMealComponent } from './book-meal/book-meal.component';
@@ -35,15 +34,12 @@ import { BookMealComponent } from './book-meal/book-meal.component';
     ForgetPasswordComponent,
     DatePickerComponent,
     ChangePasswordComponent,
-    BookMealComponent,
+    // BookMealComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatFormFieldModule,
     MatNativeDateModule,
     MatDatepickerModule,
     ReactiveFormsModule,
@@ -53,21 +49,10 @@ import { BookMealComponent } from './book-meal/book-meal.component';
     MatDialogModule,
     QuickMealComponent,
     HomeComponent,
-    MatFormFieldModule,
-    MatInputModule,
     FormsModule,
-    MatButtonModule,
     NgIf,
-    MatDialogModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
     MatCardModule,
   ],
   providers: [QuickMealComponent, DatePickerModalComponent],

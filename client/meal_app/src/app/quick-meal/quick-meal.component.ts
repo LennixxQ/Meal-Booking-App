@@ -96,13 +96,13 @@ export class QuickMealComponent {
       return false;
     }
 
-    // will opne today booking
-    if (
-      moment(date).startOf('D').toISOString() ===
-      moment().startOf('D').toISOString()
-    ) {
-      return true;
-    }
+    // will open today booking
+    // if (
+    //   moment(date).startOf('D').toISOString() ===
+    //   moment().startOf('D').toISOString()
+    // ) {
+    //   return true;
+    // }
     // moment ().weekday() // number
     // 0 sunday
 
