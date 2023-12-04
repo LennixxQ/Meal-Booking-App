@@ -7,6 +7,8 @@ import org.hibernate.annotations.CurrentTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import java.util.Set;
+import java.util.HashSet;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -45,8 +47,18 @@ public class    Users implements UserDetails {
     @Column(name = "user_role")
     private UserRole role;
 
+    @ElementCollection(targetClass = String.class)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "email"))
+    @Column(name = "role")
+    private Set<String> roles = new HashSet<>();
+
+
     @Column(name = "token", length = 255)
     private String user_token;
+
+    public void addRole(String role) {
+        roles.add(role);
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,6 +70,7 @@ public class    Users implements UserDetails {
         this.email = email;
         this.role = role;
     }
+
 
     @Override
     public String getUsername() {
@@ -88,8 +101,10 @@ public class    Users implements UserDetails {
 
 
     public enum UserRole{
-        Admin, EMPLOYEE
+        ROLE_ADMIN, ROLE_EMPLOYEE
     }
+
+
 
 
 
