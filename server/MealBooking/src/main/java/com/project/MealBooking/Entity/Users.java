@@ -21,6 +21,7 @@ import java.util.List;
 @Setter
 @Table(name = "users_table")
 public class    Users implements UserDetails {
+
     @Id //Primary Key
     @Column(name = "email", nullable = false, length = 50)
     @NotNull
@@ -52,6 +53,7 @@ public class    Users implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+
     public Users(String email, UserRole role) {
         this.email = email;
         this.role = role;
@@ -66,6 +68,8 @@ public class    Users implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
+
+
 
     @Override
     public boolean isAccountNonLocked() {
