@@ -1,16 +1,16 @@
 <div class="container">
   <section class="my-4">
-    <h2>Today's Meal</h2>
+    <h2>Today's Meal:</h2>
     <div class="row">
       <div class="col-md-5 mb-4">
         <div class="card position-relative">
           <img
-            src="https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Instant-Pot-Mumbai-Pav-Bhaji.jpg"
+            [src]="currentDayMeal.imageSource"
             class="card-img-top"
             alt="Meal"
           />
           <div class="card-body">
-            <h5 class="card-title">Pav Bhaji</h5>
+            <h5 class="card-title">{{ currentDayMeal.meal }}</h5>
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
         <div class="d-flex gap-3">
           <button
             class="btn btn-custom"
-            (click)="openDialog()"
+            (click)="openMealDialog()"
             [disabled]="!shouldShowButton"
           >
             Quick Meal
