@@ -1,4 +1,4 @@
-package com.project.MealBooking.Service.admin;
+package com.project.MealBooking.Service;
 
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Repository.UserRepository;

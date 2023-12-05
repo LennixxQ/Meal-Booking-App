@@ -1,11 +1,14 @@
 package com.project.MealBooking.config;
 
 import com.project.MealBooking.Entity.Users;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.project.MealBooking.Exception.ExpiredTokenException;
+import com.project.MealBooking.Exception.InvalidSignatureException;
+import com.project.MealBooking.Exception.MalformedTokenException;
+import com.project.MealBooking.Exception.ParsingJwtException;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import java.util.function.Function;
 
 @Component
 @Service
+@Configuration
 public class Jwtutils {
 
     public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
@@ -54,6 +58,25 @@ public class Jwtutils {
                 .getBody();
     }
 
+    public Claims parseClaims(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getSignKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
+            throw new ExpiredTokenException("JWT token has expired");
+        } catch (MalformedJwtException e) {
+            throw new MalformedTokenException("Malformed JWT token");
+        } catch (JwtException e) {
+            throw new ParsingJwtException(e.getMessage());
+        } catch (Exception e){
+            throw new InvalidSignatureException("Invalid Signature Exception");
+        }
+
+    }
+
     public String generateToken(Users users){
 //        Map<String, Object> extractClaims = new HashMap<>();
         return createToken(new HashMap<>(),users);
@@ -70,7 +93,8 @@ public class Jwtutils {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(users.getEmail())  //username or useremail
+                .setSubject(String.valueOf(users.getUserId()))  //username or useremail
+//                .setSubject(users.getEmail())  //username or useremail
                 .claim("email", users.getEmail())
                 .claim("user_id", users.getUserId())
                 .claim("role",  users.getRole().name())

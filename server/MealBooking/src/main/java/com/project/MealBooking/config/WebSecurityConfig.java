@@ -1,6 +1,6 @@
 package com.project.MealBooking.config;
 
-import com.project.MealBooking.Service.jwt.UserDetailsServiceImpl;
+import com.project.MealBooking.Service.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class WebSecurityConfig {
 //                .disable()
                 .authorizeHttpRequests()
 //                .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").hasRole("ADMIN")
-                .requestMatchers("/api/v1/auth/**")
+                .requestMatchers("/mealBooking/auth/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

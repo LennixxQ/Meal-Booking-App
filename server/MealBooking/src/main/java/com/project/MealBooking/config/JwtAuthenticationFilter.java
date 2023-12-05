@@ -33,10 +33,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Users UserDetails = new Users();
         Users users = new Users();
         UserDetails userDetails = users;
-        Claims claims = (Claims) jwtutils.extractAllClaims(token);
+//        Claims claims = (Claims) jwtutils.extractAllClaims(token);
+        Claims claims =jwtutils.parseClaims(token);
         String subject = (String) claims.get(Claims.SUBJECT);
         String roles = (String) claims.get("roles");
-        System.out.println("Email: " +subject);
+        System.out.println("Subject: " +subject);
         System.out.println("Roles: " +roles);
         roles = roles.replace("[", "").replace("]", "");
         String[] roleNames = roles.split(",");
@@ -45,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         String[] jwtSubject = subject.split(",");
 
-//        userDetails.setId(Integer.parseInt(jwtSubject[0]));
+        users.setUserId(Long.parseLong(jwtSubject[0]));
         users.setEmail(jwtSubject[1]);
 
         return users;

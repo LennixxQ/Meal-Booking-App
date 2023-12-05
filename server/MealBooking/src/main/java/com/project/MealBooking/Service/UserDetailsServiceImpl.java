@@ -1,4 +1,4 @@
-package com.project.MealBooking.Service.jwt;
+package com.project.MealBooking.Service;
 
 import com.project.MealBooking.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
