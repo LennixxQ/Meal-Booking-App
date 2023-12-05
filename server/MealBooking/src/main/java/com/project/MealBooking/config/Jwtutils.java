@@ -71,8 +71,9 @@ public class Jwtutils {
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(users.getEmail())  //username or useremail
-              //  .claim("email", users.getEmail())
-                .claim("role", users.getRole().name())
+                .claim("email", users.getEmail())
+                .claim("user_id", users.getUserId())
+                .claim("role",  users.getRole().name())
                 .setIssuedAt(new Date(System.currentTimeMillis()))  //to check the expiration afterwards
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24)) //Validity of token
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)

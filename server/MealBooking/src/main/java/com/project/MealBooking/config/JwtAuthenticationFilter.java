@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Claims claims = (Claims) jwtutils.extractAllClaims(token);
         String subject = (String) claims.get(Claims.SUBJECT);
         String roles = (String) claims.get("roles");
-        System.out.println("Subject: " +subject);
+        System.out.println("Email: " +subject);
         System.out.println("Roles: " +roles);
         roles = roles.replace("[", "").replace("]", "");
         String[] roleNames = roles.split(",");

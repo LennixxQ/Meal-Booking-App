@@ -70,7 +70,7 @@ public class AuthenticationService {
         //Till now user is authenticated means email and password is correct
         //If it is correct then generate token and send it back
         var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Authentication Error"));
+                .orElseThrow(() -> new ResourceNotFoundException("Authentication Error"));
         var jwtToken = jwtutils.generateToken(user);
         return AuthenticationReponse.builder()
                 .jwtToken(jwtToken)

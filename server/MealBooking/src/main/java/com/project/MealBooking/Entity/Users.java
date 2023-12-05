@@ -22,14 +22,19 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "users_table")
-public class    Users implements UserDetails {
+public class Users implements UserDetails {
 
-    @Id //Primary Key
+    @Id
+    @Column(name = "UserId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long UserId;
+
+//    @Id //Primary Key
     @Column(name = "email", nullable = false, length = 50)
     @NotNull
     private String email;
 
-    @Column(name = "password", length = 255)
+    @Column(name = "password", length = 255, nullable = false)
     @NotNull
     private String password;
 
