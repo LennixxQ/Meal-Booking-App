@@ -40,7 +40,6 @@ public class WebSecurityConfig {
 //                .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").hasRole("ADMIN")
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
-//                .requestMatchers("/auth/register").hasRole("Admin")
                 .anyRequest()
                 .authenticated()
                 .and()

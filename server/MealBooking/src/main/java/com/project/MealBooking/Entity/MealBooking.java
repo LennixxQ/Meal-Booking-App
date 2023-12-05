@@ -11,22 +11,23 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
-@Table(name = "meal_booking")
+@Table(name = "MealBooking")
 public class MealBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
+    @Column(name = "bookingId")
     private Long bookingId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "employee_id")
-//    private Employee employee;
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "UserId")
+    private Users UserId;
 
-    @Column(name = "booking_date")
+    @Column(name = "bookingDate")
     private Date bookingDate;
 
-    @Column(name = "meal_type", length = 10)
-    private String mealType;
+
+    @Column(name = "QrCode")
+    private String QrCode;
 
     @Column(name = "timestamp")
     @CurrentTimestamp
