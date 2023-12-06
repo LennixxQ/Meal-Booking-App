@@ -1,17 +1,16 @@
-<h1 mat-dialog-title>Book My Meal:</h1>
-<mat-form-field>
+<h1 mat-dialog-title class="boook-my-meal-top">Book My Meal:</h1>
+<mat-form-field class="boook-my-meal">
   <mat-label>Enter a date range</mat-label>
-  <mat-date-range-input [rangePicker]="picker">
+  <mat-date-range-input [rangePicker]="picker" [dateFilter]="dateFilter">
     <input matStartDate placeholder="Start date" />
     <input matEndDate placeholder="End date" />
-    [dateFilter]="dateFilter"
   </mat-date-range-input>
   <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions class="boook-my-meal-bottom">
   <button mat-button (click)="onNoClick()">Cancel</button>
   <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>
     Submit

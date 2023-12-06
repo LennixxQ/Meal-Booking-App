@@ -1,0 +1,32 @@
+.nav-list {
+  color: white;
+  margin-right: 5rem;
+}
+.nav-list-item {
+  padding: 20px;
+  align-items: center;
+  display: flex;
+}
+.nav-list-item i {
+  margin-right: 25px;
+  align-items: center;
+}
+.nav-list-item span {
+  width: 170px;
+  text-transform: capitalize;
+}
+.nav-list-open .nav-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  /* margin-right: 10px; */
+  transform: left 250ms ease-in width 250ms ease-in;
+}
+.app-side-bar-open {
+  width: 250px;
+  transform: left 250ms ease-in width 250ms ease-in;
+}
+
+ol,
+ul {
+  padding-left: 0rem;
+}

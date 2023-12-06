@@ -24,6 +24,9 @@ import { DatePickerModalComponent } from './date-picker-modal/date-picker-modal.
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { BookMealComponent } from './book-meal/book-meal.component';
+import { MatIconModule } from '@angular/material/icon';
+import { SideBarComponent } from './side-bar/side-bar.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { BookMealComponent } from './book-meal/book-meal.component';
     ForgetPasswordComponent,
     DatePickerComponent,
     ChangePasswordComponent,
-    // BookMealComponent,
+    SideBarComponent,
+   
+    
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,7 @@ import { BookMealComponent } from './book-meal/book-meal.component';
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,
+    MatIconModule
   ],
   providers: [QuickMealComponent, DatePickerModalComponent],
   bootstrap: [AppComponent],

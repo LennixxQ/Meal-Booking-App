@@ -58,11 +58,56 @@ export class HomeComponent implements OnInit {
 
   shouldShowButton: boolean = true;
 
+  dayMeals: any[] = [
+    {
+      day: 'Monday',
+      meal: 'Pav Bhaji',
+      imageSource:
+        'https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Instant-Pot-Mumbai-Pav-Bhaji.jpg',
+    },
+    {
+      day: 'Tuesday',
+      meal: 'Pasta',
+      imageSource: 'assets/images/pasta.jpg',
+    },
+    {
+      day: 'Wednesday',
+      meal: 'Ramen',
+      imageSource: 'assets/images/ramennn.jpg',
+    },
+    {
+      day: 'Thursday',
+      meal: 'Thali',
+      imageSource: 'assets/images/thaliiiiii.jpg',
+    },
+    {
+      day: 'Friday',
+      meal: 'Dosa',
+      imageSource: 'assets/images/dosa.jpg',
+    },
+  ];
+
+  currentDayMeal: any;
+
   constructor(public dialog: MatDialog) {
     this.checkTimer = this.checkTimer.bind(this);
   }
 
   ngOnInit(): void {
+    const days = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+    const currentDay = new Date().getDay();
+    this.currentDayMeal = this.dayMeals.find(
+      (meal) => meal.day === days[currentDay]
+    );
+
     this.checkTimer();
 
     const checkFunction = () => {
@@ -91,7 +136,7 @@ export class HomeComponent implements OnInit {
   }
 
   //quickmeal popup
-  openDialog(): void {
+  openMealDialog(): void {
     const dialogRef = this.dialog.open(QuickMealComponent, {
       width: '550px',
       data: { name: this.name, animal: this.animal },
