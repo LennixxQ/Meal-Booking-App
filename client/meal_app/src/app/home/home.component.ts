@@ -73,12 +73,12 @@ export class HomeComponent implements OnInit {
     {
       day: 'Wednesday',
       meal: 'Ramen',
-      imageSource: 'assets/images/ramen.jpg',
+      imageSource: 'assets/images/ramennn.jpg',
     },
     {
       day: 'Thursday',
       meal: 'Thali',
-      imageSource: 'assets/images/thali.jpg',
+      imageSource: 'assets/images/thaliiiiii.jpg',
     },
     {
       day: 'Friday',

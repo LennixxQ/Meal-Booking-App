@@ -63,3 +63,28 @@
 .user-dropdown.btn-light:hover {
   border: none;
 }
+
+.mat-icon {
+  color: white;
+  margin-left: 930px;
+}
+
+nav {
+  height: 100px;
+}
+
+.side-nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.side-nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 30%;
+}
+
+.lognav {
+  margin-bottom: 10px;
+}
