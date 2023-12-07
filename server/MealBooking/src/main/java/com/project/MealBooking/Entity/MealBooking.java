@@ -2,14 +2,16 @@ package com.project.MealBooking.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CurrentTimestamp;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
-@Getter
+@RequiredArgsConstructor
 @Setter
+@Getter
 @Entity
 @Table(name = "MealBooking")
 public class MealBooking {
@@ -18,19 +20,21 @@ public class MealBooking {
     @Column(name = "bookingId")
     private Long bookingId;
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "UserId")
-    private Users UserId;
-
     @Column(name = "bookingDate")
-    private Date bookingDate;
+    private LocalDate bookingDate;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "UserId")
+    private Long userId;
 
     @Column(name = "QrCode")
-    private String QrCode;
+    private String qrCode;
 
     @Column(name = "timestamp")
     @CurrentTimestamp
     private Timestamp timestamp;
+
 }
 

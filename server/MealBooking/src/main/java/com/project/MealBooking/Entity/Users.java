@@ -7,12 +7,10 @@ import org.hibernate.annotations.CurrentTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import java.util.Set;
-import java.util.HashSet;
+
+import java.util.*;
 
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Builder
@@ -61,6 +59,7 @@ public class Users implements UserDetails {
     @Column(name = "token", length = 255)
     private String user_token;
 
+
     public void addRole(String role) {
         roles.add(role);
     }
@@ -108,9 +107,4 @@ public class Users implements UserDetails {
     public enum UserRole{
         ROLE_ADMIN, ROLE_EMPLOYEE
     }
-
-
-
-
-
 }

@@ -1,8 +1,7 @@
 package com.project.MealBooking.config;
 
-import com.project.MealBooking.Service.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,15 +17,17 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private JwtAuthenticationFilter jwtAuthFilter;
-
-    private AuthenticationProvider authenticationProvider;
+    @Autowired
+    private final JwtAuthenticationFilter jwtAuthFilter;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
+    private final AuthenticationProvider authenticationProvider;
+
+    @Autowired
+    private final ApplicationConfig applicationConfig;
 
 
     @Bean
@@ -34,10 +35,8 @@ public class WebSecurityConfig {
         http
                 .csrf()
                 .disable()
-//                .cors()
-//                .disable()
                 .authorizeHttpRequests()
-//                .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").hasRole("ADMIN")
+//                .requestMatchers(HttpMethod.POST,"/api/v1/auth/register")
                 .requestMatchers("/mealBooking/auth/**")
                 .permitAll()
                 .anyRequest()
@@ -47,7 +46,7 @@ public class WebSecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(userDetailsServiceImpl.authenticationProvider())
+                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 

@@ -6,7 +6,7 @@ import com.project.MealBooking.Exception.DuplicateEmailException;
 import com.project.MealBooking.Exception.InvalidPasswordException;
 import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.UserRepository;
-import com.project.MealBooking.config.Jwtutils;
+import com.project.MealBooking.config.JwtService;
 import com.project.MealBooking.dto.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-
-
 @AllArgsConstructor
 public class AuthenticationService {
 
@@ -29,7 +27,7 @@ public class AuthenticationService {
     private  PasswordEncoder passwordEncoder;
 
     @Autowired
-    private Jwtutils jwtutils;
+    private JwtService jwtService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -50,10 +48,9 @@ public class AuthenticationService {
                 .password((passwordEncoder.encode(request.getPassword())))
                 .role(Users.UserRole.ROLE_EMPLOYEE)
                 .build();
-        userRepository.save(user);
-        var jwtToken = jwtutils.generateToken(user);
-        user.setUser_token(jwtToken);
-        userRepository.save(user);
+        var saveduser = userRepository.save(user);
+        var jwtToken = jwtService.generateToken(saveduser);
+        var savedUserWithToken = userRepository.save(user);
         return AuthenticationReponse.builder()
                 .jwtToken(jwtToken)
                 .build();
@@ -71,7 +68,7 @@ public class AuthenticationService {
         //If it is correct then generate token and send it back
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("Authentication Error"));
-        var jwtToken = jwtutils.generateToken(user);
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationReponse.builder()
                 .jwtToken(jwtToken)
                 .build();
@@ -84,7 +81,7 @@ public class AuthenticationService {
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())){
             throw new InvalidPasswordException("Invalid Password");
         }
-        var jwtToken = jwtutils.generateToken(user);
+        var jwtToken = jwtService.generateToken(user);
         user.setUser_token(jwtToken);
         userRepository.save(user);
         return AuthenticationReponse.builder()
@@ -104,7 +101,7 @@ public class AuthenticationService {
         if(!passwordEncoder.matches(oldPassword, users.getPassword())){
             throw new InvalidPasswordException("Invalid Old Password");
         }
-        if (jwtutils.isTokenExpiried(users.getUser_token())){
+        if (jwtService.isTokenExpiried(users.getUser_token())){
             throw new ResourceNotFoundException("Token is expired. Please Login Again");
         }
 
