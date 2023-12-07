@@ -1,7 +1,6 @@
 package com.project.MealBooking.Controller;
 
 
-import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Repository.MealBookingRepository;
 import com.project.MealBooking.Repository.UserRepository;
 import com.project.MealBooking.Service.MealBookingService;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDate;
 
 
 @RestController
@@ -62,13 +59,5 @@ public class QuickMealBookingController {
 //
 //        return ResponseEntity.ok().build();
 //    }
-
-    private void bookMealForUser(Long userID, LocalDate bookingDate){
-        MealBooking mealBooking = new MealBooking();
-        mealBooking.setUserId(userID);
-        mealBooking.setBookingDate(bookingDate);
-//        mealBooking.setQrCode(generateQrCode());
-        mealBookingRepository.save(mealBooking);
-    }
 
 }

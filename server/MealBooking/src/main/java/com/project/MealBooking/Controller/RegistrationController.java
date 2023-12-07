@@ -20,8 +20,6 @@ public class RegistrationController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<AuthenticationReponse> register(
             @RequestBody RegisterRequest request){
-
-        System.out.println("testing");
         return ResponseEntity.ok(authenticationService.register(request));
     }
 }

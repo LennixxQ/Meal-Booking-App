@@ -155,7 +155,7 @@ public class JwtService {
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
         } catch (Exception e){
-            System.out.println("");
+            System.out.println("Token is not Validated");
         }
         return false;
     }

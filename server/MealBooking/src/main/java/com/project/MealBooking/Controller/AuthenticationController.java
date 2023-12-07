@@ -26,13 +26,6 @@ public class AuthenticationController {
     @Autowired
     private JwtService jwtUtil;
 
-//    @PostMapping("/register")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<AuthenticationReponse> register(
-//            @RequestBody RegisterRequest request){
-//        return ResponseEntity.ok(authenticationService.register(request));
-//    }
-
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationReponse> register(
             @RequestBody AuthenticationRequest request){
