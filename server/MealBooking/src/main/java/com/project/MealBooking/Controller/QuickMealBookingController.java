@@ -30,11 +30,10 @@ public class QuickMealBookingController {
 
     @PostMapping("/bookMyMeal")
 //    @PreAuthorize("hasRole('EMPLOYEE')")
-    public ResponseEntity<String> quickBookMeal(@RequestHeader ("Authorization") String token)
-            throws Exception {
+    public ResponseEntity<String> quickBookMeal(@RequestHeader ("Authorization") String token) throws Exception {
         String jwtToken = token.substring(7);
-            quickMealService.quickBookMeal(jwtToken);
-            return ResponseEntity.ok("Your meal has been successfully booked for tomorrow!");
+        quickMealService.quickBookMeal(jwtToken);
+        return ResponseEntity.ok("Your meal has been successfully booked for tomorrow!");
         }
     }
 
