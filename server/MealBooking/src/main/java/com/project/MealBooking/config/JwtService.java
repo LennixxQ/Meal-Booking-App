@@ -33,39 +33,6 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-//    *************************************************************************************
-//    public String getUsernameFromToken(String token)
-//
-//    {
-//        String username = null;
-//        try {
-//            Claims claims = Jwts
-//                    .parser()
-//                    .setSigningKey(SECRET_KEY)
-//                    .parseClaimsJws(token)
-//                    .getBody();
-//            username = claims.getSubject();
-//        } catch (Exception e) {
-////            logger.error("Error parsing JWT token: {}", e.getMessage());
-//            System.out.println("Error: "+e);
-//        }
-//        return username;
-//    }
-
-//    *****************************************************************************************
-//
-//    public Long getUserIdFromToken(String token) {
-//        Long userId = null;
-//        try {
-//            Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-//            userId = Long.valueOf(claims.get("userId").toString());
-//        } catch (Exception e) {
-////            System.out.println("Error: "+e);
-//        }
-//        return userId;
-//    }
-
-//    ***************************************************************************************
     public Date extractExpiration(String token){
         return extractClaim(token, Claims::getExpiration);
     }
@@ -128,28 +95,6 @@ public class JwtService {
                 .compact();
     }
 
-//    public boolean isTokenValid(String token, UserDetails userDetails){
-//        if (userDetails == null) {
-//            return false;
-//        }
-//        final String username = extractUsername(token);
-//        final Long userID = extractUserId(token);
-//        return (username.equals(userDetails.getUsername())) && isTokenExpiried(token);
-//    }
-//    public boolean isTokenValid(String token, UserDetails userDetails){
-//        if (userDetails == null) {
-//            System.out.println("usersDetails is Null");
-//            return false;
-//        } else if (token.isEmpty() || token == null) {
-//            System.out.println("Token is Null");
-//            return false;
-//        }
-//        final String username = extractUsername(token);
-//
-//        final Long userID = extractUserId(token);
-//        return username.equalsIgnoreCase(userDetails.getUsername()) && !isTokenExpiried(token);
-//    }
-
     public  boolean isTokenValid(String token){
         try{
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
@@ -165,16 +110,26 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    public Long extractUserId(String token) {
+    public Integer extractUserId(String token) {
         try {
             Claims claims = Jwts.parser()
                     .setSigningKey(getSignKey())
                     .parseClaimsJws(token)
                     .getBody();
-            return Long.parseLong(claims.get("user_id").toString());
+            return (Integer) claims.get("user_id");
         } catch (Exception e) {
             throw new InvalidSignatureException("Invalid Signature Exception");
         }
+    }
+
+    public String getEmailFromJwtToken(String jwtToken) throws Exception{
+        String subject = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(jwtToken).getBody().getSubject();
+        return subject;
+    }
+
+    public Long getUserIdFromJwtToken(String jwtToken) throws Exception{
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(jwtToken).getBody();
+        return claims.get("user_id", Long.class);
     }
 }
 

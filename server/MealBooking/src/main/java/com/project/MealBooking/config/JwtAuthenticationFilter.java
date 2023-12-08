@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,8 +25,12 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
+
+
     private final JwtService jwtService;
     private UserDetails userDetails;
+
+    @Autowired
     private final UserDetailsService userDetailsService; //to extract the user from the database
 
     private UserDetails getUserDetails(String token){
@@ -33,11 +38,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Claims claims = jwtService.parseClaims(token);
         String subject = claims.getSubject();
         String role = (String) claims.get("role");
-//        String subject = jwtService.getUsernameFromToken(token);
-//        Long UsersID = Long.valueOf(claims.getId());
-//        Long UsersID = jwtService.getUserIdFromToken(token);
+        Integer UserID = (Integer) claims.get("user_id");
+        Long userID = Long.valueOf(jwtService.extractUserId(token));
         System.out.println("Subject: " +subject);
         System.out.println("Roles: " +role);
+        System.out.println("UserID: "+UserID);
+        System.out.println("userID: "+userID);
 //        System.out.println("User-ID: " +UsersID);
         getUserDetails.setRole(Users.UserRole.valueOf(role));
         String[] jwtSubject = subject.split(",");
@@ -70,9 +76,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 if (userDetails == null) {
-                    userDetails = userDetailsService.loadUserByUsername(userEmail);
+//                    userDetails = userDetailsService.loadUserByUsername(userEmail);
+                    userDetails = getUserDetails(jwtToken);
                 }
                 if (jwtService.isTokenValid(jwtToken)) {
+                    Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
                     userDetails = getUserDetails(jwtToken);
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
                             null,
@@ -80,6 +88,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)
                     );
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    request.setAttribute("user_id", userID);
                 } else {
                     SecurityContextHolder.getContext().setAuthentication(null);
                     logger.warn("UserDetails is null. Continuing execution without setting authentication.");

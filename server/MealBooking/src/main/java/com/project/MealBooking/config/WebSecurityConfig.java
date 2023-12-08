@@ -39,6 +39,8 @@ public class WebSecurityConfig {
 //                .requestMatchers(HttpMethod.POST,"/api/v1/auth/register")
                 .requestMatchers("/mealBooking/auth/**")
                 .permitAll()
+                .requestMatchers("/mealBooking/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -48,7 +50,6 @@ public class WebSecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
 
         CorsConfigurationSource corsConfigurationSource = new CorsConfigurationSource() {
             @Override

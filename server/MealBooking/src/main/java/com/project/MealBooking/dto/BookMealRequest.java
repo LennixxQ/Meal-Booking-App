@@ -1,14 +1,14 @@
 package com.project.MealBooking.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-@Getter
-@Setter
+@Data
+@Builder
 public class BookMealRequest {
-    private LocalDate bookingDate;
+    private Date bookingDate;
     private String email;
     private Long UserID;
 }

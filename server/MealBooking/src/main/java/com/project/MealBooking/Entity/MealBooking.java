@@ -28,9 +28,9 @@ public class MealBooking {
 
     @Column(name = "UserId")
     private Long userId;
-
-    @Column(name = "QrCode")
-    private String qrCode;
+//
+//    @Column(name = "QrCode")
+//    private String qrCode;
 
     @Column(name = "timestamp")
     @CurrentTimestamp

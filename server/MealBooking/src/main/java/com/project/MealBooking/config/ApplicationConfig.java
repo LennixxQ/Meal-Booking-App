@@ -1,5 +1,6 @@
 package com.project.MealBooking.config;
 
+import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -22,12 +22,12 @@ public class ApplicationConfig {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Bean
@@ -50,11 +50,4 @@ public class ApplicationConfig {
         return configuration.getAuthenticationManager();
     }
 
-
-//    public Users loadUserByUsername(String email) throws UsernameNotFoundException {
-//        Optional<Users> userTableOptional = userRepository.findByEmail(email);
-//        if (userTableOptional.isEmpty()) throw new UsernameNotFoundException("Username not found", null);
-//        return new Users(userTableOptional.get().getEmail(), userTableOptional.get().getPassword(), new ArrayList<>());
-
-//    }
 }

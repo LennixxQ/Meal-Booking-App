@@ -12,5 +12,6 @@ import java.util.List;
 public interface MealBookingRepository extends JpaRepository <MealBooking, Long>{
     boolean existsByBookingDateAndUserId(LocalDate bookingDate, Long userId);
 
+
     List<MealBooking> findByBookingDate(LocalDate bookingDate);
 }
