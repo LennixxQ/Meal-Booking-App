@@ -1,4 +1,4 @@
-package com.project.MealBooking.Service.utils;
+package com.project.MealBooking.config;
 
 import org.springframework.security.core.GrantedAuthority;
 

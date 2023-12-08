@@ -2,12 +2,13 @@ package com.project.MealBooking.config;
 
 import com.project.MealBooking.Entity.Users;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.project.MealBooking.Entity.Role;
 
 import java.io.IOException;
 
@@ -25,83 +25,76 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
-    private final Jwtutils jwtutils;
+
+
+    private final JwtService jwtService;
     private UserDetails userDetails;
+
+    @Autowired
     private final UserDetailsService userDetailsService; //to extract the user from the database
 
     private UserDetails getUserDetails(String token){
-        Users UserDetails = new Users();
-        Users users = new Users();
-        UserDetails userDetails = users;
-        Claims claims = (Claims) jwtutils.extractAllClaims(token);
-        String subject = (String) claims.get(Claims.SUBJECT);
-        String roles = (String) claims.get("roles");
-        System.out.println("Email: " +subject);
-        System.out.println("Roles: " +roles);
-        roles = roles.replace("[", "").replace("]", "");
-        String[] roleNames = roles.split(",");
-        for (String aRoleNames : roleNames){
-            users.addRole(new Role(aRoleNames).toString());
-        }
+        Users getUserDetails = new Users();
+        Claims claims = jwtService.parseClaims(token);
+        String subject = claims.getSubject();
+        String role = (String) claims.get("role");
+        Integer UserID = (Integer) claims.get("user_id");
+        Long userID = Long.valueOf(jwtService.extractUserId(token));
+        System.out.println("Subject: " +subject);
+        System.out.println("Roles: " +role);
+        System.out.println("UserID: "+UserID);
+        System.out.println("userID: "+userID);
+//        System.out.println("User-ID: " +UsersID);
+        getUserDetails.setRole(Users.UserRole.valueOf(role));
         String[] jwtSubject = subject.split(",");
-
-//        userDetails.setId(Integer.parseInt(jwtSubject[0]));
-        users.setEmail(jwtSubject[1]);
-
-        return users;
+//        getUserDetails.setEmail(jwtSubject[1]);
+//        getUserDetails.setUserId(UsersID);
+        return getUserDetails;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
 
-
-        final String authHeader = request.getHeader("Autorization");
-        final String jwtToken;
-        final String userEmail;
-        if(authHeader == null || !authHeader.startsWith("Bearer ")){
+        final String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
+        final String jwtToken;
+        final String userEmail;
+
         jwtToken = authHeader.substring(7);
-        // validating token
-        boolean isValid = false;
-        try
-        {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(jwtToken);
-            isValid = true;
-        }
-        catch(Exception e)
-        {
-            logger.error("JWT is invalid");
-        }
-
-        if(!isValid)
-        {
-            filterChain.doFilter(request,response);
-            return;
-        }
-
-        //To extract email from JWT token we need a class that manipulate JWT token
-        userEmail = jwtutils.extractUsername(jwtToken);
-
-        //Check if userEmail is not null it will extract userEmail from the token
-        //And check if user is not authenticated by SecurityContextholder obj
-        //And if it is null that means user is not yet authenticated
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
-            //UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            if(jwtutils.isTokenValid(jwtToken, userDetails)){
-
-                //To update our security Context after authentication
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null,
-                                userDetails.getAuthorities());
-                authenticationToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        userEmail = jwtService.extractUsername(jwtToken);
+            if (!jwtService.isTokenValid(jwtToken)) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Invalid or expired token.");
+                return;
             }
-        }
-        filterChain.doFilter(request, response);
+            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                if (userDetails == null) {
+//                    userDetails = userDetailsService.loadUserByUsername(userEmail);
+                    userDetails = getUserDetails(jwtToken);
+                }
+                if (jwtService.isTokenValid(jwtToken)) {
+                    Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
+                    userDetails = getUserDetails(jwtToken);
+                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
+                            null,
+                            userDetails.getAuthorities());
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    request.setAttribute("user_id", userID);
+                } else {
+                    SecurityContextHolder.getContext().setAuthentication(null);
+                    logger.warn("UserDetails is null. Continuing execution without setting authentication.");
+                }
+
+            }
+            filterChain.doFilter(request, response);
     }
 }

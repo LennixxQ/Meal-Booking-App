@@ -1,8 +1,8 @@
-package com.project.MealBooking.Service.admin;
+package com.project.MealBooking.Service.Admin;
 
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Repository.UserRepository;
-import com.project.MealBooking.config.Jwtutils;
+import com.project.MealBooking.config.JwtService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +15,7 @@ public class AdminServiceImpl {
     public final UserRepository userRepository;
 
     @Autowired
-    private Jwtutils jwtutils;
+    private JwtService jwtService;
 
     public <passwordEncoded> AdminServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;

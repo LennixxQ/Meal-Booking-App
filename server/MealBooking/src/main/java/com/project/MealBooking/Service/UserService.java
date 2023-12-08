@@ -3,15 +3,19 @@ package com.project.MealBooking.Service;
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.UserRepository;
+import io.jsonwebtoken.Jwts;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
-    private final UserRepository userRepository;
+import java.util.Optional;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    @Autowired
+    private final UserRepository userRepository;
 
     public boolean isValidUser(String email, String password) {
         Users users = userRepository.findByEmailAndPassword(email, password);
@@ -25,6 +29,29 @@ public class UserService {
         user.setPassword(newPassword);
         userRepository.save(user);
     }
+
+    public String findUsersByEmail(String email) {
+        try {
+            Users users = userRepository.findUsersByEmail(email);
+            return users.toString();
+        } catch (Exception e){
+            return e.toString();
+        }
+    }
+
+
+    public String getTokenByUserId(Long userId) {
+        Optional<Users> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            throw new ResourceNotFoundException("User not found with ID: " + userId);
+        }
+        return optionalUser.get().getUser_token();
+    }
+
+
+
+
+
 }
 
 

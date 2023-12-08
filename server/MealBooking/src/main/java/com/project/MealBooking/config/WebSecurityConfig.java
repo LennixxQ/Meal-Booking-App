@@ -1,14 +1,13 @@
 package com.project.MealBooking.config;
 
-import com.project.MealBooking.Service.jwt.UserDetailsServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -17,16 +16,18 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 
 @Configuration
-@EnableWebSecurity
-@AllArgsConstructor
+@EnableMethodSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private JwtAuthenticationFilter jwtAuthFilter;
-
-    private AuthenticationProvider authenticationProvider;
+    @Autowired
+    private final JwtAuthenticationFilter jwtAuthFilter;
 
     @Autowired
-    private UserDetailsServiceImpl userDetailsServiceImpl;
+    private final AuthenticationProvider authenticationProvider;
+
+    @Autowired
+    private final ApplicationConfig applicationConfig;
 
 
     @Bean
@@ -34,11 +35,11 @@ public class WebSecurityConfig {
         http
                 .csrf()
                 .disable()
-//                .cors()
-//                .disable()
                 .authorizeHttpRequests()
-//                .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").hasRole("ADMIN")
-                .requestMatchers("/api/v1/auth/**")
+//                .requestMatchers(HttpMethod.POST,"/api/v1/auth/register")
+                .requestMatchers("/mealBooking/auth/**")
+                .permitAll()
+                .requestMatchers("/mealBooking/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -47,9 +48,8 @@ public class WebSecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authenticationProvider(userDetailsServiceImpl.authenticationProvider())
+                .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
 
         CorsConfigurationSource corsConfigurationSource = new CorsConfigurationSource() {
             @Override

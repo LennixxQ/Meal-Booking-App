@@ -2,33 +2,29 @@ package com.project.MealBooking.Controller;
 
 
 import com.project.MealBooking.Service.AuthenticationService;
-import com.project.MealBooking.config.Jwtutils;
-import com.project.MealBooking.dto.*;
+import com.project.MealBooking.config.JwtService;
+import com.project.MealBooking.dto.AuthenticationReponse;
+import com.project.MealBooking.dto.AuthenticationRequest;
+import com.project.MealBooking.dto.ChangePasswordRequest;
+import com.project.MealBooking.dto.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/mealBooking/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
     @Autowired
     private AuthenticationService authenticationService;
 
-    public AuthenticationController(AuthenticationService authenticationService) {
-        this.authenticationService = authenticationService;
-    }
     @Autowired
-    private Jwtutils jwtUtil;
-
-    @PostMapping("/register")
-//    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AuthenticationReponse> register(
-            @RequestBody RegisterRequest request){
-        return ResponseEntity.ok(authenticationService.register(request));
-    }
+    private JwtService jwtUtil;
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationReponse> register(
@@ -36,10 +32,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> TestHello(){
-        return ResponseEntity.ok("Hello From Backend!!");
-    }
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationReponse> login(
@@ -48,13 +40,15 @@ public class AuthenticationController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request){
-        try{
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
+        try {
             authenticationService.changePassword(request);
-            return ResponseEntity.ok("Password Successfully Changed");
-        } catch (Exception e){
+            return ResponseEntity.ok("Password changed successfully");
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
 
 }
