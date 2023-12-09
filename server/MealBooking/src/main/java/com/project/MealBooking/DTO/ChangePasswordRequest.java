@@ -1,4 +1,4 @@
-package com.project.MealBooking.dto;
+package com.project.MealBooking.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

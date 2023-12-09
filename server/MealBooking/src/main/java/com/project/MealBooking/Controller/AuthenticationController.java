@@ -2,11 +2,11 @@ package com.project.MealBooking.Controller;
 
 
 import com.project.MealBooking.Service.AuthenticationService;
-import com.project.MealBooking.config.JwtService;
-import com.project.MealBooking.dto.AuthenticationReponse;
-import com.project.MealBooking.dto.AuthenticationRequest;
-import com.project.MealBooking.dto.ChangePasswordRequest;
-import com.project.MealBooking.dto.LoginRequest;
+import com.project.MealBooking.Configuration.JwtService;
+import com.project.MealBooking.DTO.AuthenticationReponse;
+import com.project.MealBooking.DTO.AuthenticationRequest;
+import com.project.MealBooking.DTO.ChangePasswordRequest;
+import com.project.MealBooking.DTO.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

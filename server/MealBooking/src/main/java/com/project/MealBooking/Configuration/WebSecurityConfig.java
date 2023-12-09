@@ -1,4 +1,4 @@
-package com.project.MealBooking.config;
+package com.project.MealBooking.Configuration;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

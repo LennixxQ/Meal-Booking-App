@@ -28,7 +28,7 @@ public class QuickMealBookingController {
 
 
 
-    @PostMapping("/bookMyMeal")
+    @PostMapping("/quickMeal")
 //    @PreAuthorize("hasRole('EMPLOYEE')")
     public ResponseEntity<String> quickBookMeal(@RequestHeader ("Authorization") String token) throws Exception {
         String jwtToken = token.substring(7);

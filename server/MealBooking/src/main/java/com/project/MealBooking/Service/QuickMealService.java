@@ -3,7 +3,7 @@ package com.project.MealBooking.Service;
 import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Exception.MealBookingException;
 import com.project.MealBooking.Repository.MealBookingRepository;
-import com.project.MealBooking.config.JwtService;
+import com.project.MealBooking.Configuration.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

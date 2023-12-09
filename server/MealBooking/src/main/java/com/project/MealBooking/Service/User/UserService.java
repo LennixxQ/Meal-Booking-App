@@ -1,4 +1,4 @@
-package com.project.MealBooking.Service;
+package com.project.MealBooking.Service.User;
 
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Exception.ResourceNotFoundException;

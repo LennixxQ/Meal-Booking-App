@@ -1,8 +1,8 @@
 package com.project.MealBooking.Controller;
 
 import com.project.MealBooking.Service.AuthenticationService;
-import com.project.MealBooking.dto.AuthenticationReponse;
-import com.project.MealBooking.dto.RegisterRequest;
+import com.project.MealBooking.DTO.AuthenticationReponse;
+import com.project.MealBooking.DTO.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

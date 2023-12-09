@@ -1,4 +1,4 @@
-package com.project.MealBooking.config;
+package com.project.MealBooking.Configuration;
 
 import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.UserRepository;
