@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 public class Users implements UserDetails {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "UserId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long UserId;
 
@@ -58,6 +58,8 @@ public class Users implements UserDetails {
 
     @Column(name = "token", length = 255)
     private String user_token;
+
+
 
 
     @Override

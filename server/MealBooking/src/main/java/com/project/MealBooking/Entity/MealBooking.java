@@ -11,8 +11,8 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Setter
-@Getter
 @Entity
+@Getter
 @Table(name = "MealBooking")
 public class MealBooking {
     @Id

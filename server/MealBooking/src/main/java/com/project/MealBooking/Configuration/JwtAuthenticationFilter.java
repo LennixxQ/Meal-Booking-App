@@ -1,4 +1,4 @@
-package com.project.MealBooking.config;
+package com.project.MealBooking.Configuration;
 
 import com.project.MealBooking.Entity.Users;
 import io.jsonwebtoken.Claims;
@@ -81,14 +81,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
                 if (jwtService.isTokenValid(jwtToken)) {
                     Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
-                    userDetails = getUserDetails(jwtToken);
+//                    userDetails = getUserDetails(jwtToken);
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
                             null,
                             userDetails.getAuthorities());
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)
                     );
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    request.setAttribute("user_id", userID);
+//                    request.setAttribute("user_id", userID);
                 } else {
                     SecurityContextHolder.getContext().setAuthentication(null);
                     logger.warn("UserDetails is null. Continuing execution without setting authentication.");
