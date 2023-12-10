@@ -1,9 +1,11 @@
 package com.project.MealBooking.Entity;
 
+import com.project.MealBooking.Entity.Enums.BookingStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CurrentTimestamp;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -20,20 +22,24 @@ public class Coupon {
     @Column(name = "Coupon_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserId")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users users;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "bookingId", referencedColumnName = "bookingId")
+    private MealBooking bookingId;
 
     @Column(name = "Coupon_Number")
     private String couponNumber;
 
     @Column(name = "Coupon_Date")
+    @CurrentTimestamp
     private LocalDate couponDate;
 
-    @Column(name = "Redeemed")
-    private Boolean redeemed;
-
-    // getters and setters
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
 
     public Coupon() {
         this.couponNumber = generateRandomCouponNumber(6);

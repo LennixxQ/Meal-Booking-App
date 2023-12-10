@@ -1,6 +1,7 @@
 package com.project.MealBooking.Entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CurrentTimestamp;
@@ -8,9 +9,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
-
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -27,12 +30,11 @@ public class Users implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long UserId;
 
-//    @Id //Primary Key
-    @Column(name = "email", nullable = false, length = 50)
-    @NotNull
+    @Column(name = "email", length = 50)
+    @NotEmpty
     private String email;
 
-    @Column(name = "password", length = 255, nullable = false)
+    @Column(name = "password", length = 255)
     @NotNull
     private String password;
 
@@ -43,7 +45,7 @@ public class Users implements UserDetails {
     private String lastName;
 
     @Column(name = "last_login")
-    @CurrentTimestamp  //TimeStamp
+    @CurrentTimestamp
     private Timestamp lastLogin;
 
     @Enumerated(EnumType.STRING)
@@ -58,8 +60,6 @@ public class Users implements UserDetails {
 
     @Column(name = "token", length = 255)
     private String user_token;
-
-
 
 
     @Override

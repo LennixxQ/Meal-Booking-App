@@ -19,10 +19,6 @@ public class Log {
     @Column(name = "log_id")
     private Long logId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "booking_id")
-//    private MealBooking mealBooking;
-
     @Column(name = "status", length = 20)
     private String status;
 

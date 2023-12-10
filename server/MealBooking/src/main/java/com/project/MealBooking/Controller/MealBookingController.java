@@ -5,7 +5,10 @@ import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.CancelBookingRequest;
 import com.project.MealBooking.DTO.MealBookingDto;
 import com.project.MealBooking.Entity.MealBooking;
+import com.project.MealBooking.Entity.Users;
+import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.MealBookingRepository;
+import com.project.MealBooking.Repository.UserRepository;
 import com.project.MealBooking.Service.CancelBookingService;
 import com.project.MealBooking.Service.MealBookingService;
 import com.project.MealBooking.Service.QuickMealService;
@@ -38,6 +41,9 @@ public class MealBookingController {
     @Autowired
     private final JwtService jwtService;
 
+    @Autowired
+    private final UserRepository userRepository;
+
     @PostMapping("/quickMeal")
     public ResponseEntity<String> quickBookMeal(@RequestHeader ("Authorization") String token) throws Exception {
         String jwtToken = token.substring(7);
@@ -68,10 +74,10 @@ public class MealBookingController {
     public ResponseEntity<List<MealBooking>> showMealBooking(@RequestHeader("Authorization") String token) throws Exception{
         String jwtToken = token.substring(7);
         Claims claims = jwtService.parseClaims(jwtToken);
-        String email = claims.getSubject();
         Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
-
-        List<MealBooking> bookings = mealBookingRepository.findUserByUserId(userID);
+        Users users = userRepository.findById(userID)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        List<MealBooking> bookings = mealBookingRepository.findMealBookingsByUserIdOrderByBookingDateAsc(users);
 
         return ResponseEntity.ok(bookings);
     }

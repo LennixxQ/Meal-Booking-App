@@ -1,10 +1,9 @@
 package com.project.MealBooking.Repository;
-import com.project.MealBooking.Entity.Employee;
+
+import com.project.MealBooking.Entity.NotificationTable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-
-
+public interface NotificationRepository extends JpaRepository<NotificationTable, Long> {
 }
