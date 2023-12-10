@@ -1,6 +1,7 @@
 package com.project.MealBooking.Controller;
 
 
+import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.CancelBookingRequest;
 import com.project.MealBooking.DTO.MealBookingDto;
 import com.project.MealBooking.Entity.MealBooking;
@@ -8,6 +9,7 @@ import com.project.MealBooking.Repository.MealBookingRepository;
 import com.project.MealBooking.Service.CancelBookingService;
 import com.project.MealBooking.Service.MealBookingService;
 import com.project.MealBooking.Service.QuickMealService;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +23,6 @@ import java.util.List;
 @RequestMapping("/mealBooking/home")
 public class MealBookingController {
 
-    public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
-
     @Autowired
     private final MealBookingRepository mealBookingRepository;
 
@@ -35,7 +35,8 @@ public class MealBookingController {
     @Autowired
     private final CancelBookingService cancelMealBooking;
 
-    private CancelBookingRequest cancelBookingRequest;
+    @Autowired
+    private final JwtService jwtService;
 
     @PostMapping("/quickMeal")
     public ResponseEntity<String> quickBookMeal(@RequestHeader ("Authorization") String token) throws Exception {
@@ -61,6 +62,18 @@ public class MealBookingController {
         cancelMealBooking.cancelMealBooking(jwtToken, bookingDate);
 
         return ResponseEntity.ok().body("Booking Cancelled Successfully");
+    }
+
+    @GetMapping("/show-booking")
+    public ResponseEntity<List<MealBooking>> showMealBooking(@RequestHeader("Authorization") String token) throws Exception{
+        String jwtToken = token.substring(7);
+        Claims claims = jwtService.parseClaims(jwtToken);
+        String email = claims.getSubject();
+        Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
+
+        List<MealBooking> bookings = mealBookingRepository.findUserByUserId(userID);
+
+        return ResponseEntity.ok(bookings);
     }
 
 }

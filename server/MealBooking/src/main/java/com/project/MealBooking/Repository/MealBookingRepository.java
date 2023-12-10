@@ -11,10 +11,12 @@ import java.util.List;
 
 @Repository
 public interface MealBookingRepository extends JpaRepository <MealBooking, Long>{
-    boolean existsByBookingDateAndUserId(LocalDate bookingDate, Long userId);
-
-    List<MealBooking> findByBookingDate(LocalDate bookingDate);
+//    boolean existsByBookingDateAndUserId(LocalDate bookingDate, Long userId);
+//
+//    List<MealBooking> findByBookingDate(LocalDate bookingDate);
 
     @Query("SELECT b FROM MealBooking b WHERE b.bookingDate = :bookingDate AND b.email = :email")
     MealBooking findByBookingDateAndEmail(LocalDate bookingDate, String email);
+
+    List<MealBooking> findUserByUserId(Long userID);
 }
