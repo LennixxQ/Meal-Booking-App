@@ -26,7 +26,9 @@ import { NgIf } from '@angular/common';
 import { BookMealComponent } from './book-meal/book-meal.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SideBarComponent } from './side-bar/side-bar.component';
-
+import { ShowBookingsComponent } from './show-bookings/show-bookings.component';
+import { NavbarcontainerComponent } from './navbarcontainer/navbarcontainer.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -38,8 +40,8 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     DatePickerComponent,
     ChangePasswordComponent,
     SideBarComponent,
-   
-    
+    ShowBookingsComponent,
+    NavbarcontainerComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,12 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
+    ]),
   ],
   providers: [QuickMealComponent, DatePickerModalComponent],
   bootstrap: [AppComponent],

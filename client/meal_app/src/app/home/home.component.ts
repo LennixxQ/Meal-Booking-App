@@ -25,6 +25,7 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
+import { ShowBookingsComponent } from '../show-bookings/show-bookings.component';
 
 declare var $: any;
 
@@ -82,6 +83,17 @@ export class HomeComponent implements OnInit {
     },
     {
       day: 'Friday',
+      meal: 'Dosa',
+      imageSource: 'assets/images/dosa.jpg',
+    },
+    {
+      day: 'Saturday',
+      meal: 'Dosa',
+      imageSource: 'assets/images/dosa.jpg',
+    },
+
+    {
+      day: 'Sunday',
       meal: 'Dosa',
       imageSource: 'assets/images/dosa.jpg',
     },
@@ -151,6 +163,19 @@ export class HomeComponent implements OnInit {
   //bookmeal popup
   openDialogbox(): void {
     const dialogRef = this.dialog.open(BookMealComponent, {
+      width: '550px',
+      data: { name: this.name, animal: this.animal },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+  //showbooking popup
+  openShowbookingbox(): void {
+    const dialogRef = this.dialog.open(ShowBookingsComponent, {
       width: '550px',
       data: { name: this.name, animal: this.animal },
     });

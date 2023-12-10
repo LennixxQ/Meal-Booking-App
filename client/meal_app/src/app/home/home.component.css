@@ -2,7 +2,6 @@ h5 {
   margin-left: 204px;
 }
 
-/* Additional CSS for button container */
 .button-container {
   position: RELATIVE;
   bottom: 720px;
@@ -10,56 +9,49 @@ h5 {
   transform: translateX(90%);
 }
 
-/* Style for the buttons */
 .button-container button {
-  margin: 0 5px; /* Add margin between buttons */
+  margin: 0 5px;
 }
 
 .btn-custom {
-  /* Custom styles for the button */
-  background-color: #ffa500; /* Orange */
-  border-color: #ffa500; /* Orange */
-  color: #fff; /* White text color */
-  font-size: 16px; /* Font size */
-  padding: 10px 20px; /* Padding */
-  border-radius: 5px; /* Border radius */
-  transition: background-color 0.3s ease; /* Transition effect on hover */
-}
-
-.btn-custom:hover {
-  /* Changing background color on hover */
-  background-color: #ff8c00; /* Darker Orange */
-}
-
-/* Additional CSS for button container */
-.button-container {
-  position: RELATIVE;
-  bottom: 720px;
-  left: 77%;
-  transform: translateX(90%);
-}
-
-/* Style for the buttons */
-.button-container button {
-  margin: 0 5px; /* Add margin between buttons */
-}
-
-.btn-custom {
-  /* Custom styles for the button */
-  background-color: #ffa500; /* Orange */
-  border-color: #ffa500; /* Orange */
-  color: #fff; /* White text color */
-  font-size: 16px; /* Font size */
-  padding: 10px 20px; /* Padding */
-  border-radius: 5px; /* Border radius */
-  transition: background-color 0.3s ease; /* Transition effect on hover */
+  background-color: #ffa500;
+  border-color: #ffa500;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .btn-custom:hover {
   background-color: #ff8c00;
 }
 
-/* Styles for the card */
+.button-container {
+  position: RELATIVE;
+  bottom: 720px;
+  left: 77%;
+  transform: translateX(90%);
+}
+
+.button-container button {
+  margin: 0 5px;
+}
+
+.btn-custom {
+  background-color: #ffa500;
+  border-color: #ffa500;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #ff8c00;
+}
+
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -86,7 +78,6 @@ h5 {
   margin-bottom: 0;
 }
 
-/* Adjustments for responsiveness */
 @media (max-width: 768px) {
   .col-md-4 {
     flex-basis: 100%;
@@ -101,5 +92,3 @@ h5 {
 .mat-calendar {
   background: rgb(255, 245, 238);
 }
-
-/* hey */

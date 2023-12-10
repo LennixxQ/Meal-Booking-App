@@ -1,21 +1,7 @@
-<div class="container-fluid g-0">
-  <app-navbar (sideBarToggled)="sideBarStatus = $event"></app-navbar>
-
-  <main>
-    <app-side-bar
-      [sideBarStatus]="sideBarStatus"
-      [ngClass]="{ 'app-side-bar-open': sideBarStatus }"
-    ></app-side-bar>
-    <div
-      class="display-area p-3"
-      [ngClass]="{ 'display-area-shrink': sideBarStatus }"
-    ></div>
-  </main>
-</div>
-
-<!-- <router-outlet></router-outlet> -->
+<app-navbarcontainer></app-navbarcontainer>
+<router-outlet></router-outlet>
 <!-- <app-login></app-login> -->
 <!-- <app-change-password></app-change-password> -->
-<app-home></app-home>
+<!-- <app-home></app-home> -->
 <!-- <app-forget-password></app-forget-password> -->
 <app-footer></app-footer>

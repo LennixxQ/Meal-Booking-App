@@ -7,16 +7,31 @@ import { Component } from '@angular/core';
 })
 export class LoginComponent {
   username: string;
-  password: string;
+  password;
   constructor() {
     this.username = '';
     this.password = '';
   }
   login() {
-    // Add your authentication logic here
     console.log('Username:', this.username);
     console.log('Password:', this.password);
 
     alert('Login successful!');
+  }
+
+  show = true;
+
+  ngOnInit() {
+    this.password = 'password';
+  }
+
+  onClick() {
+    if (this.password === 'password') {
+      this.password = 'text';
+      this.show = true;
+    } else {
+      this.password = 'password';
+      this.show = false;
+    }
   }
 }
