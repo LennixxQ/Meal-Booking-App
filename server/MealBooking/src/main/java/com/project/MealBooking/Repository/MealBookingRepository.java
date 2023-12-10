@@ -9,13 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface MealBookingRepository extends JpaRepository <MealBooking, Long>{
 //    boolean existsByBookingDateAndUserId(LocalDate bookingDate, Long userId);
 //
-//    List<MealBooking> findByBookingDate(LocalDate bookingDate);
+    List<MealBooking> findByBookingDate(LocalDate bookingDate);
+
+    Optional<MealBooking> findByUserIdAndBookingDate(Users users, LocalDate bookingDate);
 
     @Query("SELECT b FROM MealBooking b WHERE b.bookingDate = :bookingDate AND b.email = :email")
     MealBooking findByBookingDateAndEmail(LocalDate bookingDate, String email);
