@@ -6,6 +6,7 @@ import com.project.MealBooking.Entity.Enums.BookingStatus;
 import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Entity.NotificationTable;
 import com.project.MealBooking.Entity.Users;
+import com.project.MealBooking.Exception.MealBookingException;
 import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.CouponRepository;
 import com.project.MealBooking.Repository.MealBookingRepository;
@@ -78,6 +79,43 @@ public class MealBookingService {
          }
         }
         return bookings;
+    }
+
+    public void quickBookMeal(String jwtToken) throws Exception{
+        if (jwtToken != null) {
+            String email = jwtService.getEmailFromJwtToken(jwtToken);
+            Long userId = Long.valueOf(jwtService.extractUserId(jwtToken));
+
+            Users users = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            LocalDate bookingDate = LocalDate.now().plusDays(1);
+
+            var mealBooking = MealBooking.builder()
+                    .bookingDate(bookingDate)
+                    .userId(users)
+                    .email(users.getEmail())
+                    .build();
+            mealBookingRepository.save(mealBooking);
+            var notificationTable = NotificationTable.builder()
+                    .role(users.getRole().name())
+                    .userId(users)
+                    .NotificationRead(false)
+                    .message("Booking Successfully: " + bookingDate)
+                    .build();
+            notificationRepository.save(notificationTable);
+
+            var couponDetails = Coupon.builder()
+                    .couponNumber(generateRandomCouponNumber(6))
+                    .status(BookingStatus.valueOf("PENDING"))
+                    .UserId(users)
+                    .bookingId(mealBooking)
+                    .build();
+            couponRepository.save(couponDetails);
+        }
+        else{
+            throw new MealBookingException("Meal Cannot Booked Right Now");
+        }
+
     }
 
     String generateRandomCouponNumber(int length) {

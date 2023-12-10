@@ -1,13 +1,15 @@
 package com.project.MealBooking.Service;
 
 
-import com.project.MealBooking.Entity.*;
+import com.project.MealBooking.Configuration.JwtService;
+import com.project.MealBooking.DTO.*;
+import com.project.MealBooking.Entity.NotificationTable;
+import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Exception.DuplicateEmailException;
 import com.project.MealBooking.Exception.InvalidPasswordException;
 import com.project.MealBooking.Exception.ResourceNotFoundException;
+import com.project.MealBooking.Repository.NotificationRepository;
 import com.project.MealBooking.Repository.UserRepository;
-import com.project.MealBooking.Configuration.JwtService;
-import com.project.MealBooking.DTO.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,6 +32,10 @@ public class AuthenticationService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private final NotificationRepository notificationRepository;
+
 
 
     //This method will create a user save it to database and generate a token out of it
@@ -86,13 +92,14 @@ public class AuthenticationService {
                 .build();
     }
 
-    public void changePassword(ChangePasswordRequest request){
-        String email = request.getEmail();
+    public void changePassword(ChangePasswordRequest request, String token) throws Exception {
+        Long userId = Long.valueOf(jwtService.extractUserId(token));
+        String email = jwtService.getEmailFromJwtToken(token);
         String oldPassword = request.getOldPassword();
         String newPassword = request.getNewPassword();
 
-        Users users = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+        Users users = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User with ID cannot find"));
 
         if(!passwordEncoder.matches(oldPassword, users.getPassword())){
             throw new InvalidPasswordException("Invalid Old Password");
@@ -101,8 +108,21 @@ public class AuthenticationService {
             throw new ResourceNotFoundException("Token is expired. Please Login Again");
         }
 
-        users.setPassword(passwordEncoder.encode(newPassword));
-        userRepository.save(users);
+        Users usersEmail = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+
+            users.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(users);
+
+            var changePassword = NotificationTable
+                    .builder()
+                    .userId(users)
+                    .NotificationRead(false)
+                    .role(users.getRole().name())
+                    .message("Your password change successfully")
+                    .build();
+            notificationRepository.save(changePassword);
+
     }
 
 
