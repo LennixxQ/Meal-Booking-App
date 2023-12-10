@@ -31,9 +31,6 @@ public class AuthenticationService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-//    public AuthenticationService(PasswordEncoder passwordEncoder) {
-//        this.passwordEncoder = passwordEncoder;
-//    }
 
     //This method will create a user save it to database and generate a token out of it
     public AuthenticationReponse register(RegisterRequest request) {

@@ -1,10 +1,13 @@
 package com.project.MealBooking.Service;
 
+import com.project.MealBooking.Entity.Coupon;
+import com.project.MealBooking.Entity.Enums.BookingStatus;
 import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Entity.NotificationTable;
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Exception.MealBookingException;
 import com.project.MealBooking.Exception.ResourceNotFoundException;
+import com.project.MealBooking.Repository.CouponRepository;
 import com.project.MealBooking.Repository.MealBookingRepository;
 import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.Repository.NotificationRepository;
@@ -30,6 +33,11 @@ public class QuickMealService {
     @Autowired
     private final NotificationRepository notificationRepository;
 
+    @Autowired
+    private final CouponRepository couponRepository;
+
+    @Autowired
+    private final MealBookingService mealBookingService;
 
     public void quickBookMeal(String jwtToken) throws Exception{
         if (jwtToken != null) {
@@ -53,6 +61,14 @@ public class QuickMealService {
                     .message("Booking Successfully: " + bookingDate)
                     .build();
             notificationRepository.save(notificationTable);
+
+            var couponDetails = Coupon.builder()
+                    .couponNumber(mealBookingService.generateRandomCouponNumber(6))
+                    .status(BookingStatus.valueOf("PENDING"))
+                    .UserId(users)
+                    .bookingId(mealBooking)
+                    .build();
+            couponRepository.save(couponDetails);
         }
         else{
             throw new MealBookingException("Meal Cannot Booked Right Now");
