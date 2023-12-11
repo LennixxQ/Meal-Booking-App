@@ -110,7 +110,11 @@ public class CouponController {
         return ResponseEntity.ok().body("Redeem Successfully!");
     }
 
-//    @GetMapping("/expired-coupon")
-//    private ResponseEntity<String> ExpiredStatus(@RequestHeader("Authorization") String token,
-//                                                 @RequestBody )
+    @GetMapping("/expired-coupon")
+    private ResponseEntity<String> ExpiredStatus(@RequestHeader("Authorization") String token,
+                                                 @RequestBody redeemDto redeemDto) throws Exception{
+        String jwtToken = token.substring(7);
+        couponService.ExpirationCoupon(redeemDto, jwtToken);
+        return ResponseEntity.ok("Booking Expired");
+    }
 }

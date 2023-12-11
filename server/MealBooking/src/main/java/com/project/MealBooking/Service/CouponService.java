@@ -78,6 +78,7 @@ public class CouponService {
             }
         }
 
+
     public ResponseEntity<String> ExpirationCoupon(redeemDto redeem, String token) {
         Long userId = Long.valueOf(jwtService.extractUserId(token));
         try {
@@ -108,7 +109,7 @@ public class CouponService {
                     couponRepository.save(coupon);
                     mealBookingRepository.delete(mealBooking);
 
-                    return ResponseEntity.ok("Booking Redeemed successfully.");
+                    return ResponseEntity.ok("Booking is Expired");
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Coupon not found for the specified booking.");
                 }
@@ -118,7 +119,7 @@ public class CouponService {
         } catch (Exception e) {
             // Handle the exception or log an error
             e.printStackTrace();
-            throw new RuntimeException("Failed to redeem booking for user and date");
+            throw new RuntimeException("Failed to get booking for user and date");
         }
     }
 
