@@ -31,7 +31,7 @@
       <div class="login-content-lt"></div>
       <div class="login-content-rt">
         <div class="login-box">
-          <form class="login-form" action="#">
+          <form [formGroup]="formFG" (ngSubmit)="handleSubmit()">
             <div class="logo-wrapper">
               <img
                 src="https://i.pinimg.com/736x/a8/d1/9b/a8d19bfb6d5172adc87d65908c69137a.jpg"
@@ -52,6 +52,7 @@
                   type="email"
                   placeholder="rishabh@soft.com"
                   autofocus
+                  formControlName="email"
                 />
                 <div class="icon-after icon-green">
                   <i class="icon-check"></i>
@@ -66,7 +67,7 @@
                   id="password-field"
                   class="form-control"
                   type="{{ show ? 'password' : 'text' }}"
-                  [(ngModel)]="password"
+                  formControlName="password"
                 />
 
                 <button class="eye-button" (click)="onClick()">
@@ -92,7 +93,9 @@
             </div>
             <br />
             <div class="form-group btn-container">
-              <button class="btn btn-xl btn-success">Sign in</button>
+              <button class="btn btn-xl btn-success" type="submit">
+                Sign in
+              </button>
             </div>
           </form>
         </div>

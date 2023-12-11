@@ -16,7 +16,7 @@ export class SideBarComponent implements OnInit {
 
     {
       number: '3',
-      name: 'About',
+      name: 'About-Us',
       icon: 'fa-sharp fa-solid fa-address-card',
     },
     {

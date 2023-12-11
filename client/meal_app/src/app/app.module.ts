@@ -29,6 +29,10 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { ShowBookingsComponent } from './show-bookings/show-bookings.component';
 import { NavbarcontainerComponent } from './navbarcontainer/navbarcontainer.component';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,9 @@ import { RouterModule } from '@angular/router';
     SideBarComponent,
     ShowBookingsComponent,
     NavbarcontainerComponent,
+    AboutUsComponent,
+    PrivacyPolicyComponent,
+    TermsConditionComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,10 +69,13 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     MatCardModule,
     MatIconModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'about-us', component: AboutUsComponent },
     ]),
   ],
   providers: [QuickMealComponent, DatePickerModalComponent],

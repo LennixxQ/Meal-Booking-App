@@ -1,0 +1,10 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+h2,
+h3 {
+  color: #007bff;
+}

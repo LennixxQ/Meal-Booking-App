@@ -37,7 +37,7 @@ export class ShowBookingsComponent {
     this.isBookingsVisible = !this.isBookingsVisible;
 
     const myQr = qrcode(14, 'L');
-    myQr.addData('aksldmsad');
+    myQr.addData('1234567');
     myQr.make();
 
     this.qrImage = myQr.createImgTag();
