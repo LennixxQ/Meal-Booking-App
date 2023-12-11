@@ -13,13 +13,15 @@
         </div>
         <div class="d-flex gap-2">
           <div>
-            <button class="btn btn-danger">
-              <i class="bi bi-trash"></i>
-            </button>
+            <button class="cancelbtn rounded-pill">Cancel</button>
           </div>
           <div>
-            <button class="btn btn-success" (click)="toggleQR()">
-              <i class="bi bi-qr-code"></i>
+            <button
+              class="qrbutton rounded-pill"
+              [disabled]="isButtonDisabled"
+              (click)="toggleQR()"
+            >
+              Redeem
             </button>
           </div>
         </div>
@@ -29,6 +31,8 @@
   <ng-template #elseBlock>
     <h2>Coupon QR-Scan:</h2>
     <div class="qrContainer" [innerHTML]="qrImage"></div>
-    <button class="qrbutton rounded-pill" (click)="toggleQR()">Redeem</button>
+    <p class="timer" *ngIf="isButtonDisabled">
+      {{ remainingMinutes }} : {{ remainingSeconds }}
+    </p>
   </ng-template>
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import * as qrcode from 'qrcode-generator';
 
 @Component({
@@ -33,6 +33,11 @@ export class ShowBookingsComponent {
     },
   ];
 
+  private timer: any;
+  isButtonDisabled: boolean = false;
+  remainingMinutes: number = 15;
+  remainingSeconds: number = 0;
+
   toggleQR() {
     this.isBookingsVisible = !this.isBookingsVisible;
 
@@ -41,5 +46,26 @@ export class ShowBookingsComponent {
     myQr.make();
 
     this.qrImage = myQr.createImgTag();
+
+    this.isButtonDisabled = true;
+    this.timer = setInterval(() => {
+      if (this.remainingSeconds > 0) {
+        this.remainingSeconds--;
+      } else {
+        if (this.remainingMinutes > 0) {
+          this.remainingMinutes--;
+          this.remainingSeconds = 59;
+        } else {
+          this.isButtonDisabled = false;
+          clearInterval(this.timer);
+        }
+      }
+    }, 1000);
+  }
+
+  ngOnDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
   }
 }
