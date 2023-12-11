@@ -1,10 +1,37 @@
-.container {
-  max-width: 800px;
-  margin: auto;
-  margin-bottom: 50px;
+body {
+  background-color: #000;
+  color: #0b8457;
 }
 
-h2,
+.terms-conditions-content {
+  margin-top: 50px;
+}
+
+h1 {
+  color: #0b8457;
+}
+
 h3 {
-  color: #007bff;
+  color: #0b8457;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.col-md-8 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+a {
+  color: #0b8457;
+}
+
+a:hover {
+  color: #75c07c;
+  text-decoration: none;
 }

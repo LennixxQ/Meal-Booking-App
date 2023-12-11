@@ -26,6 +26,11 @@
   transform: left 250ms ease-in width 250ms ease-in;
 }
 
+.nav-list-item a {
+  text-decoration: none;
+  color: #d3c3c3;
+}
+
 ol,
 ul {
   padding-left: 0rem;

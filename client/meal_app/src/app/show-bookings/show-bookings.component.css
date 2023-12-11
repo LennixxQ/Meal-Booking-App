@@ -1,6 +1,5 @@
 .dialog-box {
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 20px;
 }
@@ -21,5 +20,17 @@
 }
 
 .qrbutton {
-  margin-left: 220px;
+  margin-left: 210px;
+}
+
+.qrbutton {
+  padding: 8px 22px;
+  border: none;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+.qrbutton:hover {
+  background-color: #28a745;
+  color: white;
 }

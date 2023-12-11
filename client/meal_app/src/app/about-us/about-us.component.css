@@ -1,0 +1,46 @@
+body {
+  background-color: #000;
+  color: #0b8457;
+}
+
+.about-us-content {
+  margin-top: 50px;
+}
+
+h1 {
+  color: #0b8457;
+}
+
+h3 {
+  color: #0b8457;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.col-md-8 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+a {
+  color: #0b8457;
+}
+
+a:hover {
+  color: #75c07c;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
