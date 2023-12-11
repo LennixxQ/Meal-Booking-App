@@ -25,9 +25,6 @@ public class JwtService {
 
     public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
     private Users users;
-//
-//    @Autowired
-//    private  JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
@@ -112,7 +109,8 @@ public class JwtService {
 
     public Integer extractUserId(String token) {
         try {
-            Claims claims = Jwts.parser()
+            Claims claims = Jwts
+                    .parser()
                     .setSigningKey(getSignKey())
                     .parseClaimsJws(token)
                     .getBody();
@@ -126,10 +124,10 @@ public class JwtService {
         String subject = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(jwtToken).getBody().getSubject();
         return subject;
     }
-
     public Long getUserIdFromJwtToken(String jwtToken) throws Exception{
-        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(jwtToken).getBody();
+        Claims claims = Jwts.parser().setSigningKey(getSignKey()).parseClaimsJwt(jwtToken).getBody();
         return claims.get("user_id", Long.class);
     }
+
 }
 

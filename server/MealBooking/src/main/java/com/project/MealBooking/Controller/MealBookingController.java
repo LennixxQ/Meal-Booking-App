@@ -5,10 +5,13 @@ import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.CancelBookingRequest;
 import com.project.MealBooking.DTO.MealBookingDto;
 import com.project.MealBooking.Entity.MealBooking;
+import com.project.MealBooking.Entity.Users;
+import com.project.MealBooking.Exception.ResourceNotFoundException;
+import com.project.MealBooking.Repository.CouponRepository;
 import com.project.MealBooking.Repository.MealBookingRepository;
+import com.project.MealBooking.Repository.UserRepository;
 import com.project.MealBooking.Service.CancelBookingService;
 import com.project.MealBooking.Service.MealBookingService;
-import com.project.MealBooking.Service.QuickMealService;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +30,6 @@ public class MealBookingController {
     private final MealBookingRepository mealBookingRepository;
 
     @Autowired
-    private final QuickMealService quickMealService;
-
-    @Autowired
     private final MealBookingService mealBookingService;
 
     @Autowired
@@ -38,10 +38,16 @@ public class MealBookingController {
     @Autowired
     private final JwtService jwtService;
 
+    @Autowired
+    private final UserRepository userRepository;
+
+    @Autowired
+    private final CouponRepository couponRepository;
+
     @PostMapping("/quickMeal")
     public ResponseEntity<String> quickBookMeal(@RequestHeader ("Authorization") String token) throws Exception {
         String jwtToken = token.substring(7);
-        quickMealService.quickBookMeal(jwtToken);
+        mealBookingService.quickBookMeal(jwtToken);
         return ResponseEntity.ok("Your meal has been successfully booked for tomorrow!");
         }
 
@@ -68,14 +74,13 @@ public class MealBookingController {
     public ResponseEntity<List<MealBooking>> showMealBooking(@RequestHeader("Authorization") String token) throws Exception{
         String jwtToken = token.substring(7);
         Claims claims = jwtService.parseClaims(jwtToken);
-        String email = claims.getSubject();
         Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
-
-        List<MealBooking> bookings = mealBookingRepository.findUserByUserId(userID);
+        Users users = userRepository.findById(userID)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        List<MealBooking> bookings = mealBookingRepository.findMealBookingsByUserIdOrderByBookingDateAsc(users);
 
         return ResponseEntity.ok(bookings);
     }
-
 }
 
 

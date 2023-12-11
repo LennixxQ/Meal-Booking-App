@@ -43,8 +43,6 @@ public class ApplicationConfig {
         return new BCryptPasswordEncoder();
     }
 
-    //Auth Manager is reponsible to manage the authentication
-    //AuthConfiguration holds info about auth manager
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();

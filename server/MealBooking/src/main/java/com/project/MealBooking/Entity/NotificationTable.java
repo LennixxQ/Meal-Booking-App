@@ -5,35 +5,38 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CurrentTimestamp;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Entity
-@Getter
+@Table(name = "NotificationTable")
 @Builder
-@Table(name = "MealBooking")
-public class MealBooking {
+public class NotificationTable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bookingId")
-    private Long bookingId;
+    @Column(name = "Notification_ID")
+    private Long Id;
 
-    @Column(name = "bookingDate")
-    private LocalDate bookingDate;
-
-    @Column(name = "email")
+    @Column(name = "notification_date")
     @NotNull
-    private String email;
+    @CurrentTimestamp
+    private LocalDate date;
+
+    @Column(name = "role")
+    @NotNull
+    private String role;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users userId;
 
-    @Column(name = "timestamp")
-    @CurrentTimestamp
-    private Timestamp timestamp;
+    @Column(name = "Notification_Read")
+    private boolean NotificationRead;
 
+    @Column(name = "Noti_Message")
+    private String message;
 }

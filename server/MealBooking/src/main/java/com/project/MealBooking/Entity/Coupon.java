@@ -1,18 +1,19 @@
 package com.project.MealBooking.Entity;
 
+import com.project.MealBooking.Entity.Enums.BookingStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CurrentTimestamp;
 
 import java.time.LocalDate;
-import java.util.Random;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
-@Table(name = "Coupons")
+@Table(name = "Coupon")
 public class Coupon {
 
     @Id
@@ -20,36 +21,23 @@ public class Coupon {
     @Column(name = "Coupon_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserId")
-    private Users users;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "UserId", referencedColumnName = "UserId")
+    private Users UserId;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "bookingId", referencedColumnName = "bookingId")
+    private MealBooking bookingId;
 
     @Column(name = "Coupon_Number")
     private String couponNumber;
 
     @Column(name = "Coupon_Date")
+    @CurrentTimestamp
     private LocalDate couponDate;
 
-    @Column(name = "Redeemed")
-    private Boolean redeemed;
-
-    // getters and setters
-
-    public Coupon() {
-        this.couponNumber = generateRandomCouponNumber(6);
-    }
-
-    private String generateRandomCouponNumber(int length) {
-        String allowedChars = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
-        StringBuilder stringBuilder = new StringBuilder(length);
-        Random random = new Random();
-
-        for (int i = 0; i < length; i++) {
-            int randomIndex = random.nextInt(allowedChars.length());
-            stringBuilder.append(allowedChars.charAt(randomIndex));
-        }
-
-        return stringBuilder.toString();
-    }
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BookingStatus status;
 
 }
