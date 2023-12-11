@@ -34,14 +34,14 @@ public class Users implements UserDetails {
     @NotEmpty
     private String email;
 
-    @Column(name = "password", length = 255)
+    @Column(name = "password", length = 50)
     @NotNull
     private String password;
 
-    @Column(name = "first_name", length = 255)
+    @Column(name = "first_name", length = 30)
     private String firstName;
 
-    @Column(name = "last_name", length = 255)
+    @Column(name = "last_name", length = 30)
     private String lastName;
 
     @Column(name = "last_login")
@@ -76,7 +76,6 @@ public class Users implements UserDetails {
         this.role = role;
     }
 
-
     @Override
     public String getUsername() {
         return email;
@@ -86,8 +85,6 @@ public class Users implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
-
-
 
     @Override
     public boolean isAccountNonLocked() {
@@ -103,7 +100,6 @@ public class Users implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 
     public enum UserRole{
         ROLE_ADMIN, ROLE_EMPLOYEE

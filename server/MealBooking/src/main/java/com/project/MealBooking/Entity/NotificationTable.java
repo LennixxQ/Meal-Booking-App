@@ -34,9 +34,6 @@ public class NotificationTable {
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users userId;
 
-//    @Column(name = "user_id")
-//    private Long userId;
-
     @Column(name = "Notification_Read")
     private boolean NotificationRead;
 

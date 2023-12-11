@@ -23,28 +23,24 @@ public class Employee {
     @Column(name = "employee_id", length=10)
     private Long employeeId;
 
-    @Column(name = "first_name", nullable = false, length = 255)
+    @Column(name = "first_name", nullable = false, length = 30)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 255)
+    @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
 
-    @Column(name = "email", unique = true, nullable = false, length = 255)
+    @Column(name = "email", unique = true, nullable = false, length = 30)
     private String email;
-
-//    @Column(name = "password", length = 255)
-//    @NotNull
-//    private String password;
 
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "email"))
     @Column(name = "role")
     private Set<String> roles = new HashSet<>();
 
-    @Column(name = "position", length=255)
+    @Column(name = "position", length=20)
     private String position;
 
-    @Column(name = "department", length=255)
+    @Column(name = "department", length=20)
     private String department;
 
     @Column(name = "hire_date")
@@ -53,13 +49,13 @@ public class Employee {
     @Column(name ="birth_date")
     private Date birthDate;
 
-    @Column(name = "address", length = 255)
+    @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "city", length = 255)
+    @Column(name = "city", length = 20)
     private String city;
 
-    @Column(name = "state", length = 255)
+    @Column(name = "state", length = 20)
     private String state;
 
     @Column(name = "zip_code", length = 20)

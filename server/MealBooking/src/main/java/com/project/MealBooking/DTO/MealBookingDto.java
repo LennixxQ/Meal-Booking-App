@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @RequiredArgsConstructor
-
 public class MealBookingDto {
     private LocalDate startDate;
     private LocalDate endDate;

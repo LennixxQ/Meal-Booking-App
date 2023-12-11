@@ -40,5 +40,4 @@ public class Coupon {
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
 
-
 }

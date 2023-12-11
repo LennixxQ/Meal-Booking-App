@@ -37,8 +37,6 @@ public class AuthenticationService {
     private final NotificationRepository notificationRepository;
 
 
-
-    //This method will create a user save it to database and generate a token out of it
     public AuthenticationReponse register(RegisterRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()){
             throw new DuplicateEmailException("Email Already Exists");
@@ -58,7 +56,6 @@ public class AuthenticationService {
                 .build();
     }
 
-    //This is safest method to authenticate user
     public AuthenticationReponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -66,8 +63,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        //Till now user is authenticated means email and password is correct
-        //If it is correct then generate token and send it back
+
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("Authentication Error"));
         var jwtToken = jwtService.generateToken(user);
@@ -88,7 +84,6 @@ public class AuthenticationService {
         userRepository.save(user);
         return AuthenticationReponse.builder()
                 .jwtToken(jwtToken)
-//                .withSubject(user.getEmail(), user.getRole(), user.getEmail())
                 .build();
     }
 
@@ -123,6 +118,4 @@ public class AuthenticationService {
             notificationRepository.save(changePassword);
 
     }
-
-
 }

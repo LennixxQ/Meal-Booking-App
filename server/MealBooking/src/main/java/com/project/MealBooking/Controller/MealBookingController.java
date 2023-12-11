@@ -81,8 +81,6 @@ public class MealBookingController {
 
         return ResponseEntity.ok(bookings);
     }
-
-
 }
 
 

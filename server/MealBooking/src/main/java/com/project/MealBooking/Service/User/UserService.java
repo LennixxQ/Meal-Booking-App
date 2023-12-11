@@ -3,7 +3,6 @@ package com.project.MealBooking.Service.User;
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.UserRepository;
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +38,6 @@ public class UserService {
         }
     }
 
-
     public String getTokenByUserId(Long userId) {
         Optional<Users> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) {
@@ -47,11 +45,4 @@ public class UserService {
         }
         return optionalUser.get().getUser_token();
     }
-
-
-
-
-
 }
-
-

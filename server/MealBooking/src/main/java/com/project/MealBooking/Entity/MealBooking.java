@@ -36,6 +36,4 @@ public class MealBooking {
     @CurrentTimestamp
     private Timestamp timestamp;
 
-
 }
-
