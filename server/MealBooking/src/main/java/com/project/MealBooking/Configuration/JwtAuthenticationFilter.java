@@ -26,8 +26,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
 
-
+    @Autowired
     private final JwtService jwtService;
+
     private UserDetails userDetails;
 
     @Autowired

@@ -3,6 +3,7 @@ package com.project.MealBooking.Controller;
 import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.CouponResponseDto;
 import com.project.MealBooking.DTO.NotificationResponse;
+import com.project.MealBooking.DTO.redeemDto;
 import com.project.MealBooking.Entity.Coupon;
 import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Entity.NotificationTable;
@@ -12,15 +13,13 @@ import com.project.MealBooking.Repository.CouponRepository;
 import com.project.MealBooking.Repository.MealBookingRepository;
 import com.project.MealBooking.Repository.NotificationRepository;
 import com.project.MealBooking.Repository.UserRepository;
+import com.project.MealBooking.Service.CouponService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,6 +45,9 @@ public class CouponController {
 
     @Autowired
     private final NotificationRepository notificationRepository;
+
+    @Autowired
+    private final CouponService couponService;
 
     @GetMapping("/redeem/{bookingDate}")
     public ResponseEntity<CouponResponseDto> sendCoupon(@RequestHeader("Authorization") String jwtToken,
@@ -98,4 +100,17 @@ public class CouponController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
     }
+
+    @GetMapping("/coupon-status")
+    private ResponseEntity<String> RedeemStatus(@RequestHeader("Authorization") String token,
+                                              @RequestBody redeemDto redeemDto) throws Exception{
+
+        String jwtToken = token.substring(7);
+        couponService.getRedeemConfirmation(redeemDto,jwtToken);
+        return ResponseEntity.ok().body("Redeem Successfully!");
+    }
+
+//    @GetMapping("/expired-coupon")
+//    private ResponseEntity<String> ExpiredStatus(@RequestHeader("Authorization") String token,
+//                                                 @RequestBody )
 }

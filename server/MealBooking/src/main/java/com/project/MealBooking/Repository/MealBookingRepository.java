@@ -18,6 +18,9 @@ public interface MealBookingRepository extends JpaRepository <MealBooking, Long>
 //
     List<MealBooking> findByBookingDate(LocalDate bookingDate);
 
+    List<MealBooking> findByUserId(Users userId);
+
+
     Optional<MealBooking> findByUserIdAndBookingDate(Users users, LocalDate bookingDate);
 
     @Query("SELECT b FROM MealBooking b WHERE b.bookingDate = :bookingDate AND b.email = :email")

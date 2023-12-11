@@ -25,9 +25,6 @@ public class JwtService {
 
     public static final String SECRET_KEY = "MeriWaliCompanyjtk6riie23435h45458in5435ur74j342346j8eu8eun8ne";
     private Users users;
-//
-//    @Autowired
-//    private  JwtAuthenticationFilter jwtAuthenticationFilter;
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
