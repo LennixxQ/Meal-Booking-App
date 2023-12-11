@@ -19,7 +19,7 @@ public class NotificationTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Notification_ID")
-    private Long NotificationId;
+    private Long Id;
 
     @Column(name = "notification_date")
     @NotNull
@@ -33,6 +33,9 @@ public class NotificationTable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users userId;
+
+//    @Column(name = "user_id")
+//    private Long userId;
 
     @Column(name = "Notification_Read")
     private boolean NotificationRead;

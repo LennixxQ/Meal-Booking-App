@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @Slf4j
 @Table(name = "log")
-public class Log {
+public class MealBookingLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "log_id")

@@ -61,6 +61,9 @@ public class Users implements UserDetails {
     @Column(name = "token", length = 255)
     private String user_token;
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    private List<MealBooking> mealBookings;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

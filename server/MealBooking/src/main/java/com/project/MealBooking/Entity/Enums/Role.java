@@ -1,6 +1,10 @@
 package com.project.MealBooking.Entity.Enums;
 
-public enum Role {
-    ROLE_EMPLOYEE,
-    ROLE_ADMIN
+public class Role {
+    private String name;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }
+

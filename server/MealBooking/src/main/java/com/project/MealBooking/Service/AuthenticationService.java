@@ -113,7 +113,7 @@ public class AuthenticationService {
 
             users.setPassword(passwordEncoder.encode(newPassword));
             userRepository.save(users);
-
+//**********************************
             var changePassword = NotificationTable
                     .builder()
                     .userId(users)
