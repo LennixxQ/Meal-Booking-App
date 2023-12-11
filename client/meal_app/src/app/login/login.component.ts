@@ -54,7 +54,7 @@ export class LoginComponent {
 
   private handleError(error: HttpErrorResponse) {
     window.alert('Please enter valid credentials');
-    // Return an observable with a user-facing error message.
+
     return throwError(
       () => new Error('Something bad happened; please try again later.')
     );
@@ -64,17 +64,12 @@ export class LoginComponent {
     if (this.formFG.valid === true) {
       console.log(this.formFG.value);
 
-      // vivek123@gmail.com
       try {
         this.htpClient
-          .post(
-            '/mealBooking/auth/login',
-            {
-              email: this.formFG.value.email,
-              password: this.formFG.value.password,
-            }
-            // { headers: { Authorization: window.localStorage.getItem('jwt')! } }
-          )
+          .post('/mealBooking/auth/login', {
+            email: this.formFG.value.email,
+            password: this.formFG.value.password,
+          })
           .pipe(catchError(this.handleError))
           .subscribe((response) => {
             const { jwtToken } = response as { jwtToken: string };

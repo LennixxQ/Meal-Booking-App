@@ -3,11 +3,11 @@
 }
 
 .navbar-brand {
-  font-size: 1.5rem; /* Optional: Increase the font size for the brand */
+  font-size: 1.5rem;
 }
 
 .navbar-nav {
-  margin-left: auto; /* Align the navbar items to the right */
+  margin-left: auto;
 }
 
 .nav-link {
@@ -27,7 +27,7 @@
 .user-dropdown {
   position: relative;
   display: inline-block;
-  margin-left: 10px; /* Adjust the margin as needed */
+  margin-left: 10px;
 }
 
 .user-dropdown-content {
@@ -38,7 +38,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   z-index: 1;
   border-radius: 5px;
-  color: #fff; /* Set the text color to white */
+  color: #fff;
 }
 
 .user-dropdown:hover .user-dropdown-content {
@@ -46,7 +46,7 @@
 }
 
 .user-dropdown-content a {
-  color: #fff; /* Set the text color to white */
+  color: #fff;
   padding: 10px;
   text-decoration: none;
   display: block;

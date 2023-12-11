@@ -40,9 +40,14 @@ export class ShowBookingsComponent {
 
   toggleQR() {
     this.isBookingsVisible = !this.isBookingsVisible;
+    const currentDate = new Date().toLocaleDateString();
+    const employeeName = 'Nandini Shah';
+    const employeeId = 'emp_2';
+    const couponNumber = 'LK0509';
 
+    const couponInfo = `Date and Day: ${currentDate}\nEmployee Name: ${employeeName}\nEmployee ID: ${employeeId}\nCoupon Number: ${couponNumber}\nOption to redeem Coupon`;
     const myQr = qrcode(14, 'L');
-    myQr.addData('1234567');
+    myQr.addData(couponInfo);
     myQr.make();
 
     this.qrImage = myQr.createImgTag();
@@ -56,11 +61,19 @@ export class ShowBookingsComponent {
           this.remainingMinutes--;
           this.remainingSeconds = 59;
         } else {
-          this.isButtonDisabled = false;
-          clearInterval(this.timer);
+          this.closeQRDialog();
         }
       }
     }, 1000);
+  }
+
+  closeQRDialog() {
+    this.isButtonDisabled = false;
+    clearInterval(this.timer);
+    this.isBookingsVisible = true;
+    this.qrImage = '';
+    this.remainingMinutes = 1;
+    this.remainingSeconds = 0;
   }
 
   ngOnDestroy() {

@@ -198,7 +198,6 @@ export class HomeComponent implements OnInit {
     return day !== 0 && day !== 6 && !isHoliday;
   };
 
-  // Function to compare if two dates are the same (ignoring time component)
   private isSameDate(date1: Date, date2: Date): boolean {
     return (
       date1.getFullYear() === date2.getFullYear() &&
