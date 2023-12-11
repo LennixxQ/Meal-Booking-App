@@ -1,0 +1,56 @@
+.dialog-box {
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.booking-details {
+  margin-bottom: 10px;
+}
+
+.qrContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qrContainer img {
+  height: 10rem;
+  width: 10rem;
+}
+
+.qrbutton {
+  padding: 8px 22px;
+  border: none;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+.qrbutton:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.cancelbtn {
+  padding: 8px 22px;
+  border: none;
+  color: black;
+  transition: background-color 0.3s ease;
+}
+
+.cancelbtn:hover {
+  background-color: red;
+  color: white;
+}
+
+.timer {
+  color: black;
+  font-size: 18px;
+  margin-left: 229px;
+  margin-top: 15px;
+}
+
+[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

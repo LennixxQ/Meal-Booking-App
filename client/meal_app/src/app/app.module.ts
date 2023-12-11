@@ -26,7 +26,13 @@ import { NgIf } from '@angular/common';
 import { BookMealComponent } from './book-meal/book-meal.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SideBarComponent } from './side-bar/side-bar.component';
-
+import { ShowBookingsComponent } from './show-bookings/show-bookings.component';
+import { NavbarcontainerComponent } from './navbarcontainer/navbarcontainer.component';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 
 @NgModule({
   declarations: [
@@ -38,8 +44,11 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     DatePickerComponent,
     ChangePasswordComponent,
     SideBarComponent,
-   
-    
+    ShowBookingsComponent,
+    NavbarcontainerComponent,
+    AboutUsComponent,
+    PrivacyPolicyComponent,
+    TermsConditionComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +68,18 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
+      { path: '', component: HomeComponent },
+      { path: 'about-us', component: AboutUsComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      { path: 'terms-condition', component: TermsConditionComponent },
+    ]),
   ],
   providers: [QuickMealComponent, DatePickerModalComponent],
   bootstrap: [AppComponent],

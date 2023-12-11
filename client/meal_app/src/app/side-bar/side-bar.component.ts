@@ -12,22 +12,26 @@ export class SideBarComponent implements OnInit {
       number: '1',
       name: 'Home',
       icon: 'fa-solid fa-right-from-bracket',
+      routerLink: '/home',
     },
 
     {
-      number: '3',
-      name: 'About',
+      number: '2',
+      name: 'About-Us',
       icon: 'fa-sharp fa-solid fa-address-card',
+      routerLink: '/about-us',
+    },
+    {
+      number: '3',
+      name: 'Terms & Conditions',
+      icon: 'fa-solid fa-file',
+      routerLink: '/terms-condition',
     },
     {
       number: '4',
-      name: 'Terms & Conditions',
-      icon: 'fa-solid fa-file',
-    },
-    {
-      number: '5',
       name: 'Privacy Policy',
       icon: 'fa-solid fa-book',
+      routerLink: '/privacy-policy',
     },
   ];
 

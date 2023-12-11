@@ -38,30 +38,27 @@ export class BookMealComponent {
 
   dateFilter(date: Date | null): boolean {
     if (!date) {
-      return false; // handle null case if needed
+      return false;
     }
 
     const day = date.getDate();
-    const month = date.getMonth() + 1; // Month is zero-based, so add 1
+    const month = date.getMonth() + 1;
 
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Used to disable the past dates
+    today.setHours(0, 0, 0, 0);
 
-    // Calculate the timestamp for 3 months from now
     const threeMonthsFromNow = new Date();
     threeMonthsFromNow.setMonth(threeMonthsFromNow.getMonth() + 3);
     threeMonthsFromNow.setHours(0, 0, 0, 0);
 
-    //disable past dates
     if (date <= today) {
       return false;
     }
-    // Disable weekends (Saturday and Sunday)
+
     if (date.getDay() === 0 || date.getDay() === 6) {
       return false;
     }
 
-    // Disable specific dates (25th December, 31st December, 15th January, 26th January)
     if (
       (month === 12 && (day === 25 || day === 31)) ||
       (month === 1 && (day === 15 || day === 26))
@@ -69,11 +66,10 @@ export class BookMealComponent {
       return false;
     }
 
-    //return true;
     if (date >= today && date <= threeMonthsFromNow) {
       return true;
     } else {
-      return false; // Disable selection for dates outside the specified range
+      return false;
     }
   }
 }

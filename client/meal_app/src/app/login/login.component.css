@@ -161,3 +161,11 @@ body {
 .login-content .login-content-rt .login-box .btn-container .btn {
   width: 100%;
 }
+
+.eye-button {
+  border: none;
+  background: none;
+  position: relative;
+  top: -38px;
+  margin-left: 290px;
+}

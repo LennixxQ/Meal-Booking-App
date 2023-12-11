@@ -25,6 +25,7 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
+import { ShowBookingsComponent } from '../show-bookings/show-bookings.component';
 
 declare var $: any;
 
@@ -82,6 +83,17 @@ export class HomeComponent implements OnInit {
     },
     {
       day: 'Friday',
+      meal: 'Dosa',
+      imageSource: 'assets/images/dosa.jpg',
+    },
+    {
+      day: 'Saturday',
+      meal: 'Dosa',
+      imageSource: 'assets/images/dosa.jpg',
+    },
+
+    {
+      day: 'Sunday',
       meal: 'Dosa',
       imageSource: 'assets/images/dosa.jpg',
     },
@@ -161,6 +173,19 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  //showbooking popup
+  openShowbookingbox(): void {
+    const dialogRef = this.dialog.open(ShowBookingsComponent, {
+      width: '550px',
+      data: { name: this.name, animal: this.animal },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
   //homepage static calendar
 
   dateFilter = (date: Date): boolean => {
@@ -173,7 +198,6 @@ export class HomeComponent implements OnInit {
     return day !== 0 && day !== 6 && !isHoliday;
   };
 
-  // Function to compare if two dates are the same (ignoring time component)
   private isSameDate(date1: Date, date2: Date): boolean {
     return (
       date1.getFullYear() === date2.getFullYear() &&
