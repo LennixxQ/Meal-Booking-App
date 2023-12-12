@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -50,12 +52,16 @@ public class MealBookingController {
         }
 
     @PostMapping("/book-meal")
-    public ResponseEntity<List> bookMeal(@RequestHeader("Authorization")
+    public ResponseEntity<List<LocalDate>> bookMeal(@RequestHeader("Authorization")
                                          String token,
-                                         @RequestBody MealBookingDto requestDto) throws Exception{
+                                                    @RequestBody MealBookingDto requestDto) throws Exception{
         String jwtToken = token.substring(7);
         List<MealBooking> bookings = mealBookingService.bookMeals(jwtToken, requestDto.getStartDate(), requestDto.getEndDate());
-        return ResponseEntity.ok(bookings);
+        List<LocalDate> bookedDates = bookings.stream()
+                .map(MealBooking::getBookingDate)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(bookedDates);
     }
 
     @DeleteMapping("/cancel-booking")
