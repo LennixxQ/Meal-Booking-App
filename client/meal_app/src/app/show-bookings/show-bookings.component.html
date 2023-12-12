@@ -1,16 +1,17 @@
 <div class="p-3">
   <div *ngIf="isBookingsVisible; else elseBlock">
-    <h2>Booking History:</h2>
+    <h2>Show Bookings:</h2>
     <div style="height: 30rem">
       <div
         *ngFor="let booking of bookings"
         class="booking-details d-flex justify-content-between px-5"
       >
-        <div class="">
-          <p>{{ booking.date }}</p>
-          <p>{{ booking.time }}</p>
-          <p>{{ booking.meal }}</p>
+        <div class="id">{{ booking.id }}.</div>
+        <div class="details">
+          <div class="name">{{ booking.empName }}</div>
+          <div class="meal">{{ booking.meal }}</div>
         </div>
+
         <div class="d-flex gap-2">
           <div>
             <button class="cancelbtn rounded-pill">Cancel</button>
@@ -19,7 +20,13 @@
             <button
               class="qrbutton rounded-pill"
               [disabled]="isButtonDisabled"
-              (click)="toggleQR()"
+              (click)="
+                toggleQR(
+                  booking?.empName || '',
+                  booking.id,
+                  booking.transactionID
+                )
+              "
             >
               Redeem
             </button>

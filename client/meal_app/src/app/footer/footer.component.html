@@ -1,22 +1,26 @@
-<footer class="footer">
-  <div class="footerContainer">
-    <div class="socialicons">
-      <a href=""><i class="fa-brands fa-instagram"></i></a>
-      <a href=""><i class="fa-brands fa-facebook"></i></a>
-      <a href=""><i class="fa-brands fa-twitter"></i></a>
-      <a href=""><i class="fa-brands fa-linkedin"></i></a>
-    </div>
+<div *ngIf="shouldShowFooter === true">
+  <footer class="footer">
+    <div class="footerContainer">
+      <div class="socialicons">
+        <a href=""><i class="fa-brands fa-instagram"></i></a>
+        <a href=""><i class="fa-brands fa-facebook"></i></a>
+        <a href=""><i class="fa-brands fa-twitter"></i></a>
+        <a href=""><i class="fa-brands fa-linkedin"></i></a>
+      </div>
 
-    <div class="footernav">
-      <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">About Us</a></li>
-        <li><a href="">Privacy Policy</a></li>
-        <li><a href="">Contact Us</a></li>
-      </ul>
+      <div class="footernav">
+        <ul>
+          <li><a href="">Home</a></li>
+          <li><a href="">About Us</a></li>
+          <li><a href="">Privacy Policy</a></li>
+          <li><a href="">Contact Us</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="footerbottom">
-    <p>Copyright &copy;2023 Meri Wali Company</p>
-  </div>
-</footer>
+    <div class="footerbottom">
+      <p>Copyright &copy;2023 Meri Wali Company</p>
+    </div>
+  </footer>
+</div>
+
+<div *ngIf="shouldShowFooter === false"></div>

@@ -49,7 +49,7 @@ export class LoginComponent {
   }
 
   navigateToHome() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/home');
   }
 
   private handleError(error: HttpErrorResponse) {
