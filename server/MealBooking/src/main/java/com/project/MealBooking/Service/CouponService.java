@@ -50,7 +50,7 @@ public class CouponService {
                 if (redeemDate.isPresent()) {
                     MealBooking mealBooking = redeemDate.get();
 
-                    Coupon coupon = couponRepository.findByBookingId(Optional.of(mealBooking));
+                    Coupon coupon = couponRepository.findByBookingId(mealBooking.getBookingId());
 
                     if (coupon != null) {
                         coupon.setStatus(BookingStatus.REDEEMED);
@@ -88,7 +88,7 @@ public class CouponService {
             if (redeemDate.isPresent()) {
                 MealBooking mealBooking = redeemDate.get();
 
-                Coupon coupon = couponRepository.findByBookingId(Optional.of(mealBooking));
+                Coupon coupon = couponRepository.findByBookingId(mealBooking.getBookingId());
 
                 if (coupon != null) {
                     coupon.setStatus(BookingStatus.EXPIRED);

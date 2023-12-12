@@ -14,7 +14,6 @@ public class AdminServiceImpl {
     @Autowired
     public final UserRepository userRepository;
 
-    @Autowired
     private JwtService jwtService;
 
     public <passwordEncoded> AdminServiceImpl(UserRepository userRepository) {
@@ -29,7 +28,6 @@ public class AdminServiceImpl {
             admin.setFirstName("Vivek");
             admin.setLastName("Chauhan");
             admin.setEmail("vivek123@gmail.com");
-            admin.setPassword("admin");
             admin.setRole(Users.UserRole.ROLE_ADMIN);
             admin.setPassword(new BCryptPasswordEncoder().encode("admin"));
             userRepository.save(admin);

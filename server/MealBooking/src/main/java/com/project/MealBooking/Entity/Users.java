@@ -34,14 +34,14 @@ public class Users implements UserDetails {
     @NotEmpty
     private String email;
 
-    @Column(name = "password", length = 50)
+    @Column(name = "password", length = 255)
     @NotNull
     private String password;
 
-    @Column(name = "first_name", length = 30)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", length = 30)
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "last_login")

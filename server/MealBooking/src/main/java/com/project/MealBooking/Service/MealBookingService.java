@@ -73,7 +73,7 @@ public class MealBookingService {
                      .couponNumber(generateRandomCouponNumber(6))
                      .status(BookingStatus.valueOf("PENDING"))
                      .UserId(users)
-                     .bookingId(mealBooking)
+                     .bookingId(mealBooking.getBookingId())
                      .build();
              couponRepository.save(couponDetails);
          }
@@ -108,7 +108,7 @@ public class MealBookingService {
                     .couponNumber(generateRandomCouponNumber(6))
                     .status(BookingStatus.valueOf("PENDING"))
                     .UserId(users)
-                    .bookingId(mealBooking)
+                    .bookingId(mealBooking.getBookingId())
                     .build();
             couponRepository.save(couponDetails);
         }

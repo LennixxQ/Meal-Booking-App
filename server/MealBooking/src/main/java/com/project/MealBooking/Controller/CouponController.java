@@ -62,7 +62,7 @@ public class CouponController {
 
         Optional<MealBooking> mealBooking = mealBookingRepository.findByUserIdAndBookingDate(users, bookingDate);
 
-        Coupon coupon = couponRepository.findByBookingId(mealBooking);
+        Coupon coupon = couponRepository.findByBookingId(mealBooking.get().getBookingId());
 
         var couponReedem = CouponResponseDto.builder()
                 .userId(users.getUserId())

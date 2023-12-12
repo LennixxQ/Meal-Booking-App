@@ -21,13 +21,13 @@ public class Coupon {
     @Column(name = "Coupon_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users UserId;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "bookingId", referencedColumnName = "bookingId")
-    private MealBooking bookingId;
+
+    @Column(name = "bookingId")
+    private Long bookingId;
 
     @Column(name = "Coupon_Number")
     private String couponNumber;

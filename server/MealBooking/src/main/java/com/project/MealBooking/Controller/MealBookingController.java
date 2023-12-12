@@ -78,7 +78,6 @@ public class MealBookingController {
         Users users = userRepository.findById(userID)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         List<MealBooking> bookings = mealBookingRepository.findMealBookingsByUserIdOrderByBookingDateAsc(users);
-
         return ResponseEntity.ok(bookings);
     }
 }

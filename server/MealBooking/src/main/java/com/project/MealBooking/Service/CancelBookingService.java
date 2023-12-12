@@ -5,6 +5,7 @@ import com.project.MealBooking.DTO.CancelBookingRequest;
 import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.MealBookingRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class CancelBookingService {
     @Autowired
     private final MealBookingRepository mealBookingRepository;
 
+    @Transactional
     public void cancelMealBooking(String token, CancelBookingRequest bookingDate){
         String email = jwtService.extractUsername(token);
         Long UserId = Long.valueOf(jwtService.extractUserId(token));
