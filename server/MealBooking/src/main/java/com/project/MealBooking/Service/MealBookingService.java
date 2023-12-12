@@ -171,7 +171,24 @@ public class MealBookingService {
         Users users = userRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
         List<MealBooking> mealBookings = mealBookingRepository.findByUserId(users);
-        return ResponseEntity.ok(mealBookings);
+
+        //mealBookings.get(0).setUserId(null);
+    List<MealBooking> list1 = new ArrayList<>();
+        for(MealBooking mealBooking1 : mealBookings)
+        {
+            var mealBooking = MealBooking.builder()
+                            .bookingId(mealBooking1.getBookingId())
+                                    .bookingDate(mealBooking1.getBookingDate())
+                                            .timestamp(mealBooking1.getTimestamp())
+                    .email(mealBooking1.getEmail())
+                                                    .build();
+            list1.add(mealBooking);
+
+        }
+
+
+
+        return ResponseEntity.ok(list1);
 
     }
 

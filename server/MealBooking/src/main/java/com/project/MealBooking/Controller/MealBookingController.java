@@ -69,10 +69,10 @@ public class MealBookingController {
     }
 
     @GetMapping("/showbookings")
-    public ResponseEntity<ResponseEntity<List<MealBooking>>> showMealBooking(@RequestHeader("Authorization")
+    public ResponseEntity<?> showMealBooking(@RequestHeader("Authorization")
                                                                  String token){
-        var bookings = mealBookingService.showMealBooking(token);
-        return ResponseEntity.ok().body(bookings);
+        ResponseEntity<List<MealBooking>> bookings = mealBookingService.showMealBooking(token);
+        return bookings;
     }
 }
 
