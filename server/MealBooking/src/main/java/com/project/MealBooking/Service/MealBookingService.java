@@ -14,11 +14,13 @@ import com.project.MealBooking.Repository.NotificationRepository;
 import com.project.MealBooking.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -43,6 +45,9 @@ public class MealBookingService {
 
     public List<MealBooking> bookMeals(String jwtToken, LocalDate startDate, LocalDate endDate) throws Exception{
         validateBookingDates(startDate, endDate);
+        if (endDate.isAfter(LocalDate.now().plusMonths(3))){
+            throw new ResourceNotFoundException("Booking should not be more than 3 months");
+        }
 
         String email = jwtService.getEmailFromJwtToken(jwtToken);
         Long userId = Long.valueOf(jwtService.extractUserId(jwtToken));
@@ -78,7 +83,8 @@ public class MealBookingService {
              couponRepository.save(couponDetails);
          }
         }
-        return bookings;
+        String successMessage = "Booking Successfully!";
+        return bookings.isEmpty() ? Collections.emptyList() : bookings;
     }
 
     public void quickBookMeal(String jwtToken) throws Exception{
@@ -89,6 +95,9 @@ public class MealBookingService {
             Users users = userRepository.findById(userId)
                     .orElseThrow(() -> new ResourceNotFoundException("User not found"));
             LocalDate bookingDate = LocalDate.now().plusDays(1);
+            if (mealBookingRepository.existsByUserIdAndBookingDate(users, bookingDate)) {
+                throw new MealBookingException("Booking already exists for the specified date.");
+            }
 
             var mealBooking = MealBooking.builder()
                     .bookingDate(bookingDate)
@@ -135,9 +144,6 @@ public class MealBookingService {
             throw new ResourceNotFoundException("Start date cannot be in the past");
         }
 
-        if (endDate.isAfter(LocalDate.now().plusMonths(3))){
-            throw new ResourceNotFoundException("Booking should not be more than 3 months");
-        }
     }
 
     private boolean isAvailableDate(LocalDate bookingDate, String email){
@@ -156,6 +162,17 @@ public class MealBookingService {
 
     private MealBooking findBooking(LocalDate bookingDate, String email){
         return mealBookingRepository.findByBookingDateAndEmail(bookingDate, email);
+    }
+
+    public ResponseEntity<List<MealBooking>> showMealBooking(String token){
+        String jwtToken = token.substring(7);
+        Long userId = Long.valueOf(jwtService.extractUserId(jwtToken));
+
+        Users users = userRepository.findById(userId)
+                .orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+        List<MealBooking> mealBookings = mealBookingRepository.findByUserId(users);
+        return ResponseEntity.ok(mealBookings);
+
     }
 
 }

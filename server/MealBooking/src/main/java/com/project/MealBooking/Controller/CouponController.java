@@ -76,9 +76,8 @@ public class CouponController {
         return ResponseEntity.ok(couponReedem);
     }
 
-        @GetMapping("/notification/{userId}")
-        public ResponseEntity<List<NotificationResponse>> sendNotification(@RequestHeader("Authorization") String token,
-                                                                           @PathVariable Long userId) throws Exception {
+        @GetMapping("/notification")
+        public ResponseEntity<List<NotificationResponse>> sendNotification(@RequestHeader("Authorization") String token) throws Exception {
             String jwtToken = token.substring(7);
             Long UserId = Long.valueOf(jwtService.extractUserId(jwtToken));
 

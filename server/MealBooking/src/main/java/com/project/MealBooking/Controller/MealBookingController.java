@@ -5,14 +5,11 @@ import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.CancelBookingRequest;
 import com.project.MealBooking.DTO.MealBookingDto;
 import com.project.MealBooking.Entity.MealBooking;
-import com.project.MealBooking.Entity.Users;
-import com.project.MealBooking.Exception.ResourceNotFoundException;
 import com.project.MealBooking.Repository.CouponRepository;
 import com.project.MealBooking.Repository.MealBookingRepository;
 import com.project.MealBooking.Repository.UserRepository;
 import com.project.MealBooking.Service.CancelBookingService;
 import com.project.MealBooking.Service.MealBookingService;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +41,7 @@ public class MealBookingController {
     @Autowired
     private final CouponRepository couponRepository;
 
+
     @PostMapping("/quickMeal")
     public ResponseEntity<String> quickBookMeal(@RequestHeader ("Authorization") String token) throws Exception {
         String jwtToken = token.substring(7);
@@ -70,15 +68,11 @@ public class MealBookingController {
         return ResponseEntity.ok().body("Booking Cancelled Successfully");
     }
 
-    @GetMapping("/show-booking")
-    public ResponseEntity<List<MealBooking>> showMealBooking(@RequestHeader("Authorization") String token) throws Exception{
-        String jwtToken = token.substring(7);
-        Claims claims = jwtService.parseClaims(jwtToken);
-        Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
-        Users users = userRepository.findById(userID)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        List<MealBooking> bookings = mealBookingRepository.findMealBookingsByUserIdOrderByBookingDateAsc(users);
-        return ResponseEntity.ok(bookings);
+    @GetMapping("/showbookings")
+    public ResponseEntity<ResponseEntity<List<MealBooking>>> showMealBooking(@RequestHeader("Authorization")
+                                                                 String token){
+        var bookings = mealBookingService.showMealBooking(token);
+        return ResponseEntity.ok().body(bookings);
     }
 }
 
