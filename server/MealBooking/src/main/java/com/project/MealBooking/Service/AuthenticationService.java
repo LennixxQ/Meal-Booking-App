@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthenticationService {
 
+    @Autowired
     private final UserRepository userRepository;
 
     @Autowired

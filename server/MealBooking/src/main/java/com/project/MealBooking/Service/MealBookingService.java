@@ -1,6 +1,7 @@
 package com.project.MealBooking.Service;
 
 import com.project.MealBooking.Configuration.JwtService;
+import com.project.MealBooking.DTO.ShowBookingDto;
 import com.project.MealBooking.Entity.Coupon;
 import com.project.MealBooking.Entity.Enums.BookingStatus;
 import com.project.MealBooking.Entity.MealBooking;
@@ -31,7 +32,7 @@ public class MealBookingService {
     @Autowired
     private final JwtService jwtService;
 
-    private static final long MAX_ALLOWED_TIME_DIFFERENCE = 5000;
+    private static final long MAX_ALLOWED_TIME_DIFFERENCE = 1000;
 
     @Autowired
     private  final UserRepository userRepository;
@@ -98,7 +99,7 @@ public class MealBookingService {
 
                     var couponDetails = Coupon.builder()
                             .couponNumber(generateRandomCouponNumber(6))
-                            .status(BookingStatus.valueOf("PENDING"))
+                            .status(BookingStatus.PENDING)
                             .UserId(users)
                             .bookingId(mealBooking.getBookingId())
                             .build();
@@ -160,7 +161,7 @@ public class MealBookingService {
 
             var couponDetails = Coupon.builder()
                     .couponNumber(generateRandomCouponNumber(6))
-                    .status(BookingStatus.valueOf("PENDING"))
+                    .status(BookingStatus.PENDING)
                     .UserId(users)
                     .bookingId(mealBooking.getBookingId())
                     .build();
@@ -209,23 +210,24 @@ public class MealBookingService {
         return mealBookingRepository.findByBookingDateAndEmail(bookingDate, email);
     }
 
-    public ResponseEntity<List<MealBooking>> showMealBooking(String token){
+    public ResponseEntity<List<ShowBookingDto>> showMealBooking(String token){
         String jwtToken = token.substring(7);
         Long userId = Long.valueOf(jwtService.extractUserId(jwtToken));
 
         Users users = userRepository.findById(userId)
                 .orElseThrow(()-> new ResourceNotFoundException("User Not Found"));
+
+
         List<MealBooking> mealBookings = mealBookingRepository.findByUserId(users);
-    List<MealBooking> list1 = new ArrayList<>();
+
+        List<ShowBookingDto> list1 = new ArrayList<>();
+
         for(MealBooking mealBooking1 : mealBookings)
         {
-            var mealBooking = MealBooking.builder()
-                            .bookingId(mealBooking1.getBookingId())
-                                    .bookingDate(mealBooking1.getBookingDate())
-                                            .timestamp(mealBooking1.getTimestamp())
-                    .email(mealBooking1.getEmail())
-                                                    .build();
-            list1.add(mealBooking);
+            ShowBookingDto showBookingDto = new ShowBookingDto();
+            showBookingDto.setUserId(users.getUserId());
+            showBookingDto.setBookingDate(mealBooking1.getBookingDate());
+            list1.add(showBookingDto);
         }
         return ResponseEntity.ok(list1);
     }

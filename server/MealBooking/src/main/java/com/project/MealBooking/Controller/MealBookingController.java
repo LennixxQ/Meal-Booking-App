@@ -4,6 +4,7 @@ package com.project.MealBooking.Controller;
 import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.CancelBookingRequest;
 import com.project.MealBooking.DTO.MealBookingDto;
+import com.project.MealBooking.DTO.ShowBookingDto;
 import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Repository.CouponRepository;
 import com.project.MealBooking.Repository.MealBookingRepository;
@@ -77,7 +78,7 @@ public class MealBookingController {
     @GetMapping("/showbookings")
     public ResponseEntity<?> showMealBooking(@RequestHeader("Authorization")
                                                                  String token){
-        ResponseEntity<List<MealBooking>> bookings = mealBookingService.showMealBooking(token);
+        ResponseEntity<List<ShowBookingDto>> bookings = mealBookingService.showMealBooking(token);
         return bookings;
     }
 }
