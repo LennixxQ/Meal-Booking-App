@@ -53,6 +53,10 @@ public class MealBookingService {
             throw new ResourceNotFoundException("Booking should not be more than 3 months");
         }
 
+        if (startDate.isEqual(LocalDate.now())){
+            throw new ResourceNotFoundException("Booking should start with tomorrow");
+        }
+
         Instant currentInstant = Instant.now();
         Instant systemTimeInstant = Instant.ofEpochMilli(System.currentTimeMillis());
         long timeDifference = Duration.between(currentInstant, systemTimeInstant).abs().toMillis();
