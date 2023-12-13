@@ -35,6 +35,6 @@ public class NotificationTable {
     private Users userId;
 
 
-    @Column(name = "Noti_Message")
+    @Column(name = "NotificationMessage")
     private String message;
 }
