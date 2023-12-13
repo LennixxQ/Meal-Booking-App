@@ -92,7 +92,6 @@ public class MealBookingService {
                     var notificationTable = NotificationTable.builder()
                             .role(users.getRole().name())
                             .userId(users)
-                            .NotificationRead(false)
                             .message("Booking Successfully: " + bookingDate)
                             .build();
                     notificationRepository.save(notificationTable);
@@ -155,7 +154,6 @@ public class MealBookingService {
             var notificationTable = NotificationTable.builder()
                     .role(users.getRole().name())
                     .userId(users)
-                    .NotificationRead(false)
                     .message("Booking Successfully: " + bookingDate)
                     .build();
             notificationRepository.save(notificationTable);

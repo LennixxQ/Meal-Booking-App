@@ -34,8 +34,6 @@ public class NotificationTable {
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users userId;
 
-    @Column(name = "Notification_Read")
-    private boolean NotificationRead;
 
     @Column(name = "Noti_Message")
     private String message;

@@ -114,7 +114,6 @@ public class AuthenticationService {
             var changePassword = NotificationTable
                     .builder()
                     .userId(users)
-                    .NotificationRead(false)
                     .role(users.getRole().name())
                     .message("Your password change successfully")
                     .build();

@@ -61,9 +61,8 @@ public class Users implements UserDetails {
     @Column(name = "token", length = 255)
     private String user_token;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.REMOVE) //This ensures that when a Users entity is deleted, associated MealBooking entities are also deleted.
     private List<MealBooking> mealBookings;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -10,4 +10,5 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
 
     @Query("select c from Coupon c where c.bookingId = ?1")
     Coupon findByBookingId(Long mealBooking);
+
 }

@@ -21,10 +21,9 @@ public class Coupon {
     @Column(name = "Coupon_ID")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE )
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users UserId;
-
 
     @Column(name = "bookingId")
     private Long bookingId;
