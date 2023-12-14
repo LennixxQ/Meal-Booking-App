@@ -12,6 +12,10 @@ export class NavbarComponent implements OnInit {
 
   shouldShowheader = true;
 
+  showNotificationList = false;
+  notifications: string[] = [];
+  counter = 0;
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {
@@ -29,5 +33,30 @@ export class NavbarComponent implements OnInit {
   sideBarToggle() {
     this.menuStatus = !this.menuStatus;
     this.sideBarToggled.emit(this.menuStatus);
+  }
+
+  toggleNotificationList() {
+    this.showNotificationList = !this.showNotificationList;
+
+    const notificationMessage = this.generateRandomNotification();
+
+    this.notifications.unshift(notificationMessage);
+
+    this.notifications = this.notifications.slice(0, 5);
+  }
+
+  generateRandomNotification(): string {
+    const messages = [
+      'Your meal has been booked!',
+      'Quick meal is booked',
+      'Your meal has been cancelled',
+    ];
+    const index = this.counter % messages.length;
+    this.counter++;
+    return messages[index];
+  }
+
+  removeNotification(index: number) {
+    this.notifications.splice(index, 1);
   }
 }

@@ -25,12 +25,33 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
+      ---------------------------
 
-      <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+      <div class="col-6 d-flex justify-content-end">
+        <a class="nav-item mr-2" (click)="toggleNotificationList()">
+          <i class="fa-solid fa-bell"></i>
+        </a>
+        <div
+          class="notification-list-container"
+          [ngClass]="{ show: showNotificationList }"
+        >
+          <ul class="notification-list">
+            <li
+              *ngFor="let notification of notifications; let i = index"
+              class="notification-item"
+            >
+              <div>
+                <span>{{ notification }}</span>
+                <span class="close-button" (click)="removeNotification(i)"
+                  >&times;</span
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-      <span class="cdk-visually-hidden">
-        Example with a home icon with overlaid badge showing the number 15
-      </span>
+      -----------------------
 
       <div class="rounded user-dropdown btn-light nav-item">
         <a
