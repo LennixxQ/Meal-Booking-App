@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/mealBooking")
+@RequestMapping("/mealBooking/admin")
 public class RegistrationController {
     @Autowired
     private AuthenticationService authenticationService;

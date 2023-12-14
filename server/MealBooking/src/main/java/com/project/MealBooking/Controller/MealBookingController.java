@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/mealBooking/home")
+@RequestMapping("/mealBooking/meal")
 public class MealBookingController {
 
     @Autowired

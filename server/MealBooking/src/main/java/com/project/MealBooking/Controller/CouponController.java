@@ -67,8 +67,7 @@ public class CouponController {
                 .bookingDate(mealBooking.get().getBookingDate())
                 .Coupon(coupon.getCouponNumber())
                 .build();
-
-        return ResponseEntity.ok(couponReedem);
+            return ResponseEntity.ok(couponReedem);
     }
 
     @GetMapping("/coupon-status")
@@ -76,15 +75,25 @@ public class CouponController {
                                               @RequestBody redeemDto redeemDto) throws Exception{
 
         String jwtToken = token.substring(7);
-        couponService.getRedeemConfirmation(redeemDto,jwtToken);
-        return ResponseEntity.ok().body("Redeem Successfully!");
+        var couponRedeem = couponService.getRedeemConfirmation(redeemDto,jwtToken);
+        if (couponRedeem.getStatusCode().is2xxSuccessful() ) {
+            return ResponseEntity.ok().body("Redeemed Successfully!");
+        }
+        else {
+            return ResponseEntity.badRequest().body("Coupon Doesn't Exist");
+        }
     }
 
     @GetMapping("/expired-coupon")
     private ResponseEntity<String> ExpiredStatus(@RequestHeader("Authorization") String token,
                                                  @RequestBody redeemDto redeemDto) throws Exception{
         String jwtToken = token.substring(7);
-        couponService.ExpirationCoupon(redeemDto, jwtToken);
-        return ResponseEntity.ok("Booking Expired");
+        var couponExpired = couponService.ExpirationCoupon(redeemDto, jwtToken);
+        if (couponExpired.getStatusCode().is2xxSuccessful()) {
+            return ResponseEntity.ok("Coupon Expired");
+        }
+        else {
+            return ResponseEntity.badRequest().body("Coupon Doesn't Exist");
+        }
     }
 }
