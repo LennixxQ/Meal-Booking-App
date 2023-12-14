@@ -1,85 +1,48 @@
-<!-- home-page.component.html -->
-
 <div class="container">
-  <!-- Navigation Bar -->
-  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Meal Booking App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Menu</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </nav> -->
-
-  <!-- Featured Meal Section -->
-  <!-- <section class="my-4">
-    <h2>Featured Meal</h2>
-    <div class="card-deck">
-      <div class="card">
-        <img src="https://i.guim.co.uk/img/media/3c7a203ba04443e997f02b0aed2f63d3d61970d6/0_0_5650_3390/master/5650.jpg?width=1020&dpr=2&s=none" class="card-img-top" alt="Featured Meal">
-        <div class="card-body">
-          <h5 class="card-title">Delicious Meal</h5>
-          <p class="card-text">A description of the featured meal goes here.</p>
-          <a href="#" class="btn btn-primary">Book Now</a>
-        </div>
-      </div> -->
-  <!-- Add more featured meal cards as needed -->
-  <!-- </div>
-  </section> -->
-
-  <!-- Available Meals Section -->
   <section class="my-4">
-    <h2>Today's Meal</h2>
+    <h2>Today's Meal:</h2>
     <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card position-relative">
+      <div class="col-md-5 mb-4">
+        <div class="card">
           <img
-            src="https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Instant-Pot-Mumbai-Pav-Bhaji.jpg"
+            [src]="currentDayMeal.imageSource"
             class="card-img-top"
             alt="Meal"
           />
           <div class="card-body">
-            <h5 class="card-title">Pav Bhaji</h5>
-          </div>
-          <!-- Buttons Container -->
-          <div class="button-container d-flex justify-content-between">
-            <button class="btn btn-custom">Quick Meal</button>
-            <button class="btn btn-custom">Book Meal</button>
-            <button class="btn btn-custom">Cancel Meal</button>
+            <h5 class="card-title">{{ currentDayMeal.meal }}</h5>
           </div>
         </div>
       </div>
-      <app-date-picker></app-date-picker>
+
+      <div class="col-md-7 mb-4">
+        <div class="d-flex gap-3">
+          <button
+            class="btn btn-custom"
+            (click)="openMealDialog()"
+            [disabled]="!shouldShowButton"
+          >
+            Quick Meal
+          </button>
+          <button class="btn btn-custom" (click)="openDialogbox()">
+            Book Meal
+          </button>
+          <button class="btn btn-custom" (click)="openShowbookingbox()">
+            Show Bookings
+          </button>
+        </div>
+        <mat-card>
+          <div class="date-input position-absolute top-0 end-0 p-3 col-md-6">
+            <h2>Book My Meal:</h2>
+            <mat-card class="demo-inline-calendar-card">
+              <mat-calendar
+                [(selected)]="selected"
+                [dateFilter]="dateFilter"
+              ></mat-calendar>
+            </mat-card>
+          </div>
+        </mat-card>
+      </div>
     </div>
   </section>
 </div>
-
-<!-- Add more meal cards as needed -->
-<!-- </div>
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="https://www.cubesnjuliennes.com/wp-content/uploads/2020/07/Instant-Pot-Mumbai-Pav-Bhaji.jpg" class="card-img-top" alt="Meal">
-          <div class="card-body">
-            <h5 class="card-title">Meal 1</h5>
-            <p class="card-text">Description of Meal 1.</p>
-            <a href="#" class="btn btn-primary">Book Now</a>
-          </div>
-        </div>
-      </div> -->
-<!-- Add more meal cards as needed -->
-
-<!-- <button class="btn btn-primary">Click me</button>
-<button class="btn btn-custom">Click me</button> -->

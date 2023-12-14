@@ -34,17 +34,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private final UserDetailsService userDetailsService; //to extract the user from the database
 
-    private UserDetails getUserDetails(String token){
+    private UserDetails getUserDetails(String token) {
         Users getUserDetails = new Users();
         Claims claims = jwtService.parseClaims(token);
         String subject = claims.getSubject();
         String role = (String) claims.get("role");
         Integer UserID = (Integer) claims.get("user_id");
         Long userID = Long.valueOf(jwtService.extractUserId(token));
-        System.out.println("Subject: " +subject);
-        System.out.println("Roles: " +role);
-        System.out.println("UserID: "+UserID);
-        System.out.println("userID: "+userID);
+        System.out.println("Subject: " + subject);
+        System.out.println("Roles: " + role);
+        System.out.println("UserID: " + UserID);
+        System.out.println("userID: " + userID);
         getUserDetails.setRole(Users.UserRole.valueOf(role));
         String[] jwtSubject = subject.split(",");
 //        getUserDetails.setEmail(jwtSubject[1]);
@@ -69,30 +69,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         jwtToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(jwtToken);
-            if (!jwtService.isTokenValid(jwtToken)) {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("Invalid or expired token.");
-                return;
+        if (!jwtService.isTokenValid(jwtToken)) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid or expired token.");
+            return;
+        }
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+            if (jwtService.isTokenValid(jwtToken)) {
+                Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
+                        null,
+                        userDetails.getAuthorities());
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)
+                );
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+            } else {
+                SecurityContextHolder.getContext().setAuthentication(null);
+                logger.warn("UserDetails is null. Continuing execution without setting authentication.");
             }
-            if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails =userDetailsService.loadUserByUsername(userEmail);
-//                if (userDetails == null) {
-//                    userDetails = getUserDetails(jwtToken);
-//                }
-                if (jwtService.isTokenValid(jwtToken)) {
-                    Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
-                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
-                            null,
-                            userDetails.getAuthorities());
-                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)
-                    );
-                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                } else {
-                    SecurityContextHolder.getContext().setAuthentication(null);
-                    logger.warn("UserDetails is null. Continuing execution without setting authentication.");
-                }
 
-            }
-            filterChain.doFilter(request, response);
+        }
+        filterChain.doFilter(request, response);
     }
 }

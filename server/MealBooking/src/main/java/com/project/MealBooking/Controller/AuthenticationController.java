@@ -2,10 +2,9 @@ package com.project.MealBooking.Controller;
 
 
 import com.project.MealBooking.Configuration.JwtService;
-import com.project.MealBooking.DTO.AuthenticationReponse;
-import com.project.MealBooking.DTO.AuthenticationRequest;
-import com.project.MealBooking.DTO.ChangePasswordRequest;
-import com.project.MealBooking.DTO.LoginRequest;
+import com.project.MealBooking.DTO.*;
+import com.project.MealBooking.Entity.Users;
+import com.project.MealBooking.Repository.UserRepository;
 import com.project.MealBooking.Service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,9 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @Autowired
-    private JwtService jwtUtil;
+    private JwtService jwtService;
+    @Autowired
+    private UserRepository userRepository;
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationReponse> register(
@@ -43,6 +44,31 @@ public class AuthenticationController {
             return ResponseEntity.ok("Password changed successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileDTO> getUserProfile(@RequestHeader("Authorization") String token){
+        try {
+            String jwtToken = token.substring(7);
+            Long userId = Long.valueOf(jwtService.extractUserId(jwtToken));
+
+            Users users = userRepository.findUsersByUserId(userId);
+            if (users != null) {
+                UserProfileDTO userProfileDTO = UserProfileDTO.builder()
+                        .email(users.getEmail())
+                        .firstName(users.getFirstName())
+                        .lastName(users.getLastName())
+                        .userId(users.getUserId())
+                        .build();
+                return ResponseEntity.ok(userProfileDTO);
+            }
+            else {
+                return ResponseEntity.notFound().build();
+            }
+        }
+        catch (Exception e){
+            return ResponseEntity.notFound().build();
         }
     }
 }

@@ -9,33 +9,79 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';  
-import {MatCardModule} from '@angular/material/card';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { QuickMealComponent } from './quick-meal/quick-meal.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DatePickerModalComponent } from './date-picker-modal/date-picker-modal.component';
+import { MatButtonModule } from '@angular/material/button';
+import { NgIf } from '@angular/common';
+import { BookMealComponent } from './book-meal/book-meal.component';
+import { MatIconModule } from '@angular/material/icon';
+import { SideBarComponent } from './side-bar/side-bar.component';
+import { ShowBookingsComponent } from './show-bookings/show-bookings.component';
+import { NavbarcontainerComponent } from './navbarcontainer/navbarcontainer.component';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    HomeComponent,
     FooterComponent,
     ForgetPasswordComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    ChangePasswordComponent,
+    SideBarComponent,
+    ShowBookingsComponent,
+    NavbarcontainerComponent,
+    AboutUsComponent,
+    PrivacyPolicyComponent,
+    TermsConditionComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatFormFieldModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatInputModule,
+    DatePickerModalComponent,
+    MatDialogModule,
+    QuickMealComponent,
+    HomeComponent,
+    FormsModule,
+    NgIf,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      { path: 'login', component: LoginComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'change-password', component: ChangePasswordComponent },
+      { path: 'about-us', component: AboutUsComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      { path: 'terms-condition', component: TermsConditionComponent },
+      { path: '', pathMatch: 'full', redirectTo: 'login' },
+    ]),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [QuickMealComponent, DatePickerModalComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

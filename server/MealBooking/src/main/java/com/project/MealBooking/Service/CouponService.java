@@ -8,6 +8,7 @@ import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Entity.Users;
 import com.project.MealBooking.Repository.CouponRepository;
 import com.project.MealBooking.Repository.MealBookingRepository;
+import com.project.MealBooking.Repository.NotificationRepository;
 import com.project.MealBooking.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class CouponService {
 
     @Autowired
     private final CouponRepository couponRepository;
+    private final NotificationRepository notificationRepository;
 
     public ResponseEntity<String> getRedeemConfirmation(redeemDto redeem, String token) {
         Long userId = Long.valueOf(jwtService.extractUserId(token));

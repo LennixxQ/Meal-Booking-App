@@ -1,37 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="" />
-    <!-- Twitter meta-->
-    <meta property="twitter:card" content=" " />
-    <meta property="twitter:site" content=" " />
-    <meta property="twitter:creator" content="" />
-    <!-- Open Graph Meta-->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content=" " />
-    <meta property="og:title" content="" />
-    <meta property="og:url" content=" " />
-    <meta property="og:image" content="" />
-    <meta property="og:description" content="" />
     <title>Meal Booking App</title>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Main CSS-->
-    <!-- <link rel="stylesheet" type="text/css" href="css/main.css"> -->
-    <!-- Font-icon css-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
-    />
   </head>
   <body class="mt-0">
     <section class="login-content">
       <div class="login-content-lt"></div>
       <div class="login-content-rt">
         <div class="login-box">
-          <form class="login-form" action="#">
+          <form [formGroup]="formFG" (ngSubmit)="handleSubmit()">
             <div class="logo-wrapper">
               <img
                 src="https://i.pinimg.com/736x/a8/d1/9b/a8d19bfb6d5172adc87d65908c69137a.jpg"
@@ -43,6 +20,7 @@
             <p class="login-text">
               Enter your credentials to access your account.
             </p>
+
             <div class="form-group">
               <label class="control-label">Email</label>
               <div class="input-addon">
@@ -51,20 +29,35 @@
                   type="email"
                   placeholder="rishabh@soft.com"
                   autofocus
+                  formControlName="email"
                 />
                 <div class="icon-after icon-green">
                   <i class="icon-check"></i>
                 </div>
               </div>
-              <!-- <div class="error-block">Error display here</div> -->
             </div>
+
             <div class="form-group">
               <label class="control-label">Password</label>
               <div class="input-addon">
-                <input id="password-field" class="form-control" type="password" value="Password">
-                <span toggle="#password-field" class="icon-eye-close field-icon toggle-password"></span>
+                <input
+                  id="password-field"
+                  class="form-control"
+                  type="{{ show ? 'password' : 'text' }}"
+                  formControlName="password"
+                />
+
+                <div class="eye-button" (click)="onClick()">
+                  <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
+                  <i
+                    class="fa fa-eye-slash"
+                    aria-hidden="true"
+                    *ngIf="show"
+                  ></i>
+                </div>
               </div>
             </div>
+
             <div class="d-flex align-items-center justify-content-between">
               <div class="form-group mb-0">
                 <label class="custom-checkbox mb-0"
@@ -77,28 +70,13 @@
             </div>
             <br />
             <div class="form-group btn-container">
-              <button class="btn btn-xl btn-success">Sign in</button>
+              <button class="btn btn-xl btn-success" type="submit">
+                Sign in
+              </button>
             </div>
           </form>
         </div>
       </div>
     </section>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/plugins/pace.min.js"></script>
-    <script>
-      $(".toggle-password").click(function() {
-  
-  $(this).toggleClass("icon-eye-close icon-eye-open");
-  var input = $($(this).attr("toggle"));
-  if (input.attr("type") == "password") {
-    input.attr("type", "text");
-  } else {
-    input.attr("type", "password");
-  }
-  });
-      </script>
   </body>
 </html>

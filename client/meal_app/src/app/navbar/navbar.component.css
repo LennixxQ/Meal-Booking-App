@@ -1,65 +1,150 @@
 .navbar {
-    padding: 20px 0;
-  }
-  
-  .navbar-brand {
-    font-size: 1.5rem; /* Optional: Increase the font size for the brand */
-  }
-  
-  .navbar-nav {
-    margin-left: auto; /* Align the navbar items to the right */
-  }
-  
-  .nav-link {
-    padding: 10px 15px;
-    transition: background-color 0.3s ease;
-    background-color: transparent;
-  }
+  padding: 20px 0;
+}
 
-  .nav-link:hover{
-    background-color: rgba(255, 255, 255, 0.2);
-  }
+.navbar-brand {
+  font-size: 1.5rem;
+}
 
-  .nav-link.active {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
+.navbar-nav {
+  margin-left: auto;
+}
 
-  .user-dropdown {
-    position: relative;
-    display: inline-block;
-    margin-left: 10px; /* Adjust the margin as needed */
-  }
-  
-  .user-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #343a40;
-    min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    border-radius: 5px;
-    color: #fff; /* Set the text color to white */
-  }
-  
-  .user-dropdown:hover .user-dropdown-content {
-    display: block;
-  }
-  
-  .user-dropdown-content a {
-    color: #fff; /* Set the text color to white */
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .user-dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
+.nav-link {
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
+  background-color: transparent;
+}
 
-  .user-dropdown.btn-light {
-    border: none;
-  }
-  
-  .user-dropdown.btn-light:hover {
-    border: none;
-  }
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.user-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #343a40;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+  display: block;
+}
+
+.user-dropdown-content a {
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.user-dropdown-content a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-dropdown.btn-light {
+  border: none;
+}
+
+.user-dropdown.btn-light:hover {
+  border: none;
+}
+
+.mat-icon {
+  color: white;
+  margin-left: 930px;
+}
+
+nav {
+  height: 100px;
+}
+
+.side-nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.side-nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 30%;
+}
+
+.lognav {
+  margin-bottom: 10px;
+}
+
+.nav-item.mr-2 {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-solid.fa-bell {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.notification-list-container.show .fa-solid.fa-bell {
+  color: #f00;
+}
+
+.notification-list-container {
+  position: absolute;
+  top: 72px;
+  right: 116px;
+  width: 250px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.notification-list-container.show {
+  display: block;
+  opacity: 1;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background-color: #eee;
+}
+
+.close-button {
+  font-size: 14px;
+  color: #999;
+  float: right;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.justify-content-end {
+  margin-left: 236px;
+}
