@@ -57,14 +57,6 @@ public class MealBookingService {
             throw new ResourceNotFoundException("Booking should start with tomorrow");
         }
 
-        Instant currentInstant = Instant.now();
-        Instant systemTimeInstant = Instant.ofEpochMilli(System.currentTimeMillis());
-        long timeDifference = Duration.between(currentInstant, systemTimeInstant).abs().toMillis();
-
-        if (timeDifference > MAX_ALLOWED_TIME_DIFFERENCE) {
-            throw new BookingException("System time manipulation detected");
-        }
-
         LocalTime currentTime = LocalTime.now();
         LocalTime bookingEndTime = LocalTime.of(20, 0);
         LocalTime bookingStartTime = LocalTime.of(8,0 );

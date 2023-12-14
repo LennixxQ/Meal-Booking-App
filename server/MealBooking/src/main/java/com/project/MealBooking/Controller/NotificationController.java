@@ -10,10 +10,7 @@ import com.project.MealBooking.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +28,7 @@ public class NotificationController {
     @Autowired
     private NotificationRepository notificationRepository;
 
-    @GetMapping("/notification")
+    @GetMapping("/show-notification")
     public ResponseEntity<List<NotificationResponse>> sendNotification(@RequestHeader("Authorization") String token) throws Exception {
         String jwtToken = token.substring(7);
         Long UserId = Long.valueOf(jwtService.extractUserId(jwtToken));
@@ -45,7 +42,9 @@ public class NotificationController {
             List<NotificationResponse> notificationDtos = notificationTable.stream()
                     .map(notification -> new NotificationResponse(
                             notification.getUserId().getUserId(),
-                            notification.getMessage()))
+                            notification.getNotificationId(),
+                            notification.getMessage()
+                    ))
                     .collect(Collectors.toList());
             System.out.printf("Number of Notification: "+notificationDtos.size());
 
@@ -53,5 +52,17 @@ public class NotificationController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @DeleteMapping("/delete-notification/{NotificationId}")
+    public ResponseEntity<String> deleteNotification(@PathVariable Long NotificationId){
+            var id = notificationRepository.findByNotificationId(NotificationId);
+            if (id != null){
+                notificationRepository.delete(id);
+                return ResponseEntity.ok().body("Notification deleted");
+            }
+        else {
+                    throw new ResourceNotFoundException("Notification Cannot found");
+                }
     }
 }
