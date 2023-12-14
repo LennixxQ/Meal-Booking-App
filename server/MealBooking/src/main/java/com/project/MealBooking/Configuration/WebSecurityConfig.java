@@ -36,7 +36,7 @@ public class WebSecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-//                .requestMatchers("/api/v1/auth/register").hasRole("ADMIN")
+                .requestMatchers("/mealBooking/admin/register").hasRole("ADMIN")
                 .requestMatchers("/mealBooking/auth/login")
                 .permitAll()
                 .requestMatchers("/mealBooking/auth/authenticate")
