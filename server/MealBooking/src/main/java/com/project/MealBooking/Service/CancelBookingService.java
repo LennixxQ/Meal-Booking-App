@@ -2,6 +2,8 @@ package com.project.MealBooking.Service;
 
 import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.CancelBookingRequest;
+import com.project.MealBooking.Entity.Coupon;
+import com.project.MealBooking.Entity.Enums.BookingStatus;
 import com.project.MealBooking.Entity.MealBooking;
 import com.project.MealBooking.Entity.NotificationTable;
 import com.project.MealBooking.Entity.Users;
@@ -49,6 +51,9 @@ public class CancelBookingService {
             throw new ResourceNotFoundException("No Booking found on Date: "+bookingDate);
         }
         mealBookingRepository.delete(exisitingBooking);
+
+        Coupon coupon = couponRepository.findByBookingId(exisitingBooking.getBookingId());
+        coupon.setStatus(BookingStatus.CANCELLED);
 
         var couponNotification = NotificationTable.builder()
                 .userId(users)
