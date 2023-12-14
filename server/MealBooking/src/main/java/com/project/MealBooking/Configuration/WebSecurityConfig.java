@@ -44,7 +44,6 @@ public class WebSecurityConfig {
                 .anyRequest()
                 .authenticated()
                 .and()
-//                Authentication state or session state should not be stored after every request
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
