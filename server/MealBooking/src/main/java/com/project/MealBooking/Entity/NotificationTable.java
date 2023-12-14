@@ -19,7 +19,7 @@ public class NotificationTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Notification_ID")
-    private Long Id;
+    private Long NotificationId;
 
     @Column(name = "notification_date")
     @NotNull
@@ -34,9 +34,7 @@ public class NotificationTable {
     @JoinColumn(name = "UserId", referencedColumnName = "UserId")
     private Users userId;
 
-    @Column(name = "Notification_Read")
-    private boolean NotificationRead;
 
-    @Column(name = "Noti_Message")
+    @Column(name = "NotificationMessage")
     private String message;
 }

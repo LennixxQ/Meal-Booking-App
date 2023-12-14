@@ -1,12 +1,12 @@
 package com.project.MealBooking.Controller;
 
 
-import com.project.MealBooking.Service.AuthenticationService;
 import com.project.MealBooking.Configuration.JwtService;
 import com.project.MealBooking.DTO.AuthenticationReponse;
 import com.project.MealBooking.DTO.AuthenticationRequest;
 import com.project.MealBooking.DTO.ChangePasswordRequest;
 import com.project.MealBooking.DTO.LoginRequest;
+import com.project.MealBooking.Service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,6 @@ public class AuthenticationController {
             @RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationReponse> login(

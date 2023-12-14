@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthenticationService {
 
+    @Autowired
     private final UserRepository userRepository;
 
     @Autowired
@@ -57,13 +58,16 @@ public class AuthenticationService {
     }
 
     public AuthenticationReponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+        } catch (InvalidPasswordException e) {
+            throw new InvalidPasswordException("Invalid email or password");
+        }
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("Authentication Error"));
         var jwtToken = jwtService.generateToken(user);
@@ -111,7 +115,6 @@ public class AuthenticationService {
             var changePassword = NotificationTable
                     .builder()
                     .userId(users)
-                    .NotificationRead(false)
                     .role(users.getRole().name())
                     .message("Your password change successfully")
                     .build();

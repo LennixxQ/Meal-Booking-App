@@ -75,9 +75,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                if (userDetails == null) {
-                    userDetails = getUserDetails(jwtToken);
-                }
+                UserDetails userDetails =userDetailsService.loadUserByUsername(userEmail);
+//                if (userDetails == null) {
+//                    userDetails = getUserDetails(jwtToken);
+//                }
                 if (jwtService.isTokenValid(jwtToken)) {
                     Long userID = Long.valueOf(jwtService.extractUserId(jwtToken));
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,

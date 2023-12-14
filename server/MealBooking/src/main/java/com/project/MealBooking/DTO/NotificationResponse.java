@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class NotificationResponse {
     Long userId;
+    Long id;
     String notificationMessage;
 
 }
