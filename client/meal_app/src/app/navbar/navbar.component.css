@@ -88,3 +88,63 @@ nav {
 .lognav {
   margin-bottom: 10px;
 }
+
+.nav-item.mr-2 {
+  position: relative;
+  display: inline-block;
+}
+
+.fa-solid.fa-bell {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.notification-list-container.show .fa-solid.fa-bell {
+  color: #f00;
+}
+
+.notification-list-container {
+  position: absolute;
+  top: 72px;
+  right: 116px;
+  width: 250px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.notification-list-container.show {
+  display: block;
+  opacity: 1;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background-color: #eee;
+}
+
+.close-button {
+  font-size: 14px;
+  color: #999;
+  float: right;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.justify-content-end {
+  margin-left: 236px;
+}

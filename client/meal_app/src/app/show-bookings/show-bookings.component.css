@@ -54,3 +54,25 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.booking-details {
+  display: flex;
+  align-items: center;
+}
+
+.id {
+  width: 40px;
+  font-weight: bold;
+}
+
+.details {
+  margin-left: 10px;
+}
+
+.meal {
+  font-weight: bold;
+}
+
+.buttons {
+  margin-left: auto;
+}
