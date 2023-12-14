@@ -173,7 +173,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  //showbooking popup
+  //showbooking  popup
   openShowbookingbox(): void {
     const dialogRef = this.dialog.open(ShowBookingsComponent, {
       width: '550px',
